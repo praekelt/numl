@@ -1,8 +1,4 @@
 {
-  function parseText(chars) {
-    return chars.join('');
-  }
-
   function conj(a, b) {
     var c = {};
     for (var k in a) if (a.hasOwnProperty(k)) c[k] = a[k];
@@ -73,4 +69,4 @@ lineWs 'line whitespace'
 
 text 'text'
   = chars:[a-zA-Z0-9 ]+
-  { return parseText(chars); }
+  { return text(); }
