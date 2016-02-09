@@ -77,7 +77,9 @@ property
   }
 
 
-key = text
+key 'key'
+  = [\->a-zA-Z0-9 ]+
+  { return text(); }
 
 
 value
@@ -113,7 +115,7 @@ lineWs 'line whitespace'
 
 
 text 'text'
-  = chars:[a-zA-Z0-9 ]+
+  = [a-zA-Z0-9 ]+
   { return text(); }
 
 

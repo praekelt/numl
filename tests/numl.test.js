@@ -97,6 +97,28 @@ waldo
      });
   });
 
+  it("should parse special block property keys", function() {
+    numl(`
+      foo
+      ===
+
+      bar
+      ---
+
+      choice
+      ~~~~~~
+      ->: baz
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         blocks: [{
+           '->': 'baz'
+         }]
+       }]
+     });
+  });
+
+
   it("should parse block string properties", function() {
     numl(`
       foo
