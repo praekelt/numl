@@ -5,4 +5,13 @@ chai.should();
 
 
 describe("numl", function() {
+  it("should parse dialogue names", function() {
+    numl(`
+      foo
+      ===
+    `)
+     .should.shallowDeepEqual({
+       name: 'foo'
+     });
+  });
 });
