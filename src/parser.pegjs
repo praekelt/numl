@@ -6,7 +6,7 @@
 
 
 dialogue
-  = ws* name:dialogueName ws* sequences:sequence* ws*
+  = ws* name:dialogueName ws* sequences:sequence*
   {
     return {
       name: name,
@@ -21,7 +21,7 @@ dialogueName
 
 
 sequence
-  = ws* name:sequenceName ws*
+  = name:sequenceName ws*
   {
     return {
       name: name,
