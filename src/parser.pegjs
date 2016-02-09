@@ -1,0 +1,7 @@
+{
+}
+
+
+start = dialogue
+
+dialogue = .*
