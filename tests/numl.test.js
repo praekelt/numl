@@ -34,4 +34,29 @@ describe("numl", function() {
        }]
      });
   });
+
+  it("should parse block types", function() {
+    numl(`
+      foo
+      ===
+
+      bar
+      ---
+
+      choice
+      ~~~~~~
+
+      question
+      ~~~~~~~~
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         blocks: [{
+           type: 'choice'
+         }, {
+           type: 'question'
+         }]
+       }]
+     });
+  });
 });

@@ -2,6 +2,13 @@
   function parseText(chars) {
     return chars.join('');
   }
+
+  function conj(a, b) {
+    var c = {};
+    for (var k in a) if (a.hasOwnProperty(k)) c[k] = a[k];
+    for (k in b) if (b.hasOwnProperty(k)) c[k] = b[k];
+    return c;
+  }
 }
 
 
@@ -21,10 +28,11 @@ dialogueName
 
 
 sequence
-  = name:sequenceName ws*
+  = name:sequenceName ws* blocks:block* ws*
   {
     return {
       name: name,
+      blocks: blocks
     };
   }
 
@@ -32,6 +40,23 @@ sequence
 sequenceName
   = text:text newline lineWs* [-]+
   { return text; }
+
+
+block
+  = type:blockType ws* def:blockDef ws*
+  {
+    return conj(def, {type: type});
+  }
+
+
+blockType
+  = type:text newline lineWs* [~]+
+  { return type; }
+
+
+blockDef
+  = ws*
+  { return {}; }
 
 
 newline
