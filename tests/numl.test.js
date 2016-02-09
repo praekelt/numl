@@ -59,4 +59,58 @@ describe("numl", function() {
        }]
      });
   });
+
+  it("should parse block string properties", function() {
+    numl(`
+      foo
+      ===
+
+      bar
+      ---
+
+      choice
+      ~~~~~~
+      baz: quux
+      corge: grault
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         blocks: [{
+           baz: 'quux',
+           corge: 'grault'
+         }]
+       }]
+     });
+  });
+
+  it("should parse block number properties", function() {
+    numl(`
+      foo
+      ===
+
+      bar
+      ---
+
+      choice
+      ~~~~~~
+      baz: 23
+      quux: 23.23
+      corge: 0
+      grault: 0.0
+      garply: +23
+      waldo: -23.23e-23
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         blocks: [{
+           baz: 23,
+           quux: 23.23,
+           corge: 0,
+           grault: 0.0,
+           garply: +23,
+           waldo: -23.23e-23
+         }]
+       }]
+     });
+  });
 });
