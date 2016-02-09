@@ -81,11 +81,26 @@ key = text
 
 
 value
-  = number
+  = contentBlob
+  / number
   / string
 
 
-newline
+contentBlob
+  = backtick content:content backtick
+  { return content.trim(); }
+
+
+content 'content'
+  = [^`]*
+  { return text(); }
+
+
+backtick '`'
+  = '`'
+
+
+newline 'newline'
   = [\n]
 
 

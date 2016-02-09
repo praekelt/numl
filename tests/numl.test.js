@@ -60,6 +60,43 @@ describe("numl", function() {
      });
   });
 
+  it("should parse block content properties", function() {
+    numl(`
+foo
+===
+
+bar
+---
+
+choice
+~~~~~~
+baz:\`
+quux
+  corge
+    grault
+\`
+garply:\`
+waldo
+  fred
+\`
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         blocks: [{
+           baz:`
+quux
+  corge
+    grault
+           `.trim(),
+           garply:`
+waldo
+  fred
+          `.trim()
+         }]
+       }]
+     });
+  });
+
   it("should parse block string properties", function() {
     numl(`
       foo
