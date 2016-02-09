@@ -129,13 +129,13 @@ waldo
 
       choice
       ~~~~~~
-      baz: quux
+      baz: quux 23
       corge: grault
     `)
      .should.shallowDeepEqual({
        sequences: [{
          blocks: [{
-           baz: 'quux',
+           baz: 'quux 23',
            corge: 'grault'
          }]
        }]

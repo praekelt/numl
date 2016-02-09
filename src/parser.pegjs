@@ -85,7 +85,7 @@ key 'key'
 value
   = contentBlob
   / number
-  / string
+  / text
 
 
 contentBlob
@@ -129,10 +129,6 @@ int 'integer'
   { return parseInt(text()) }
 
 
-string 'string'
-  = s:$(alphanumeric+ letter* alphanumeric*)
-
-
 digit = [0-9]
 point = '.'
 sign = minus / plus
@@ -142,7 +138,3 @@ frac = point digit+
 minus = '-'
 plus = '+'
 zero = '0'
-
-letter = [a-zA-Z]
-alphanumeric = [a-zA-Z0-9]
-
