@@ -14,4 +14,24 @@ describe("numl", function() {
        name: 'foo'
      });
   });
+
+  it("should parse sequence names", function() {
+    numl(`
+      foo
+      ===
+
+      bar
+      ---
+
+      baz
+      ---
+    `)
+     .should.shallowDeepEqual({
+       sequences: [{
+         name: 'bar'
+       }, {
+         name: 'baz'
+       }]
+     });
+  });
 });

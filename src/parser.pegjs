@@ -6,9 +6,12 @@
 
 
 dialogue
-  = ws* name:dialogueName ws* dialogueBody
+  = ws* name:dialogueName ws* sequences:sequence* ws*
   {
-    return {name: name};
+    return {
+      name: name,
+      sequences: sequences
+    };
   }
 
 
@@ -17,8 +20,18 @@ dialogueName
   { return text; }
 
 
-dialogueBody
-  = .*
+sequence
+  = ws* name:sequenceName ws*
+  {
+    return {
+      name: name,
+    };
+  }
+
+
+sequenceName
+  = text:text newline lineWs* [-]+
+  { return text; }
 
 
 newline
