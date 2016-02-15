@@ -25,7 +25,7 @@ Example
    type: choice
    save: colour
 
-   content[multiple-choice]:`
+   question[multiple-choice]:`
      Hi {@msisdn}. What is your favourite colour?
      1. Red {$red}
      2. Blue {$blue}
@@ -43,8 +43,7 @@ Example
    ~~~~~~~~~~
    name: red-end
    type: end
-   content:`
-     I like red too, bye!
+   text[content]: I like red too, bye!
    `
 
    Blue was chosen
@@ -55,8 +54,7 @@ Example
    ~~~~~~~~~~~
    name: blue-end
    type: end
-   content:`
-     Blue is okay, bye!
+   text[content]: Blue is okay, bye!
    `
 
 Compiles to:
