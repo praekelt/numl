@@ -1,22 +1,16 @@
-.. numl documentation master file, created by
-   sphinx-quickstart on Fri Feb 12 15:34:55 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+numl documentation
+==================
 
-Welcome to numl's documentation!
-================================
+.. TODO link to numi once we have a thing to link to
 
-Contents:
+numl is a `markup language <markup-language>`_ for defining numi dialogues. It
+allows one to read and write numi dialogues similar to how a document would be read and written. A numl document compiles to a `JSON <json>` description understandable by numi.
+
+.. _markup-language: https://en.wikipedia.org/wiki/Markup_language
+.. _json: http://www.json.org/
 
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   example.rst
+   lang.rst
