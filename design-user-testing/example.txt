@@ -1,5 +1,5 @@
-Colour Dialogue
-===============
+Example Dialogue
+================
 
 Start
 -----
