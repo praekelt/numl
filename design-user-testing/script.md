@@ -1,7 +1,7 @@
 # Numi User Testing: numl
 
 ## Intro
-- designed a text-based format for defining Numi dialogues to allow us to use numi while we are still building a UI
+- designed a text-based format for defining numi dialogues to allow us to use numi while we are still building a UI
 
 - we want you to test out the design
 
@@ -61,6 +61,7 @@
   8. ```
   text[content]: `
     I like red too, bye!
+  `
   ```
 
 
@@ -76,6 +77,9 @@
   - number properties
   - content properties
   - multiple choice properties
+  - list properties
+  - routes
+  - block ordering
 
 - show block reference
 
