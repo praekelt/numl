@@ -39,7 +39,9 @@ End of Red
 ~~~~~~~~~~
 name: red-end
 type: end-screen
-text[content]: `I like red too, bye!`
+text[content]: `
+  I like red too, bye!
+`
 
 Blue was chosen
 ----------------
@@ -49,4 +51,6 @@ End of Blue
 ~~~~~~~~~~~
 name: blue-end
 type: end-screen
-text[content]: `Blue is okay, bye!`
+text[content]: `
+  Blue is okay, bye!
+`
