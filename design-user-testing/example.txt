@@ -1,0 +1,52 @@
+Colour Dialogue
+===============
+
+Start
+-----
+name: start
+
+
+User dials in
+~~~~~~~~~~~~~
+type: dial-event
+name: user-dials-in
+channels:
+   - `*120*123#`
+   - `*120*456#`
+
+
+Favourite Colour
+~~~~~~~~~~~~~~~~
+name: fav-colour
+type: choice-screen
+save: colour
+
+text[multiple-choice]:`
+  Hi {@msisdn}. What is your favourite colour?
+  1. Red {$red}
+  2. Blue {$blue}
+`
+routes:
+  red: chose-red
+  blue: chose-blue
+
+
+Red was chosen
+--------------
+name: chose-red
+
+End of Red
+~~~~~~~~~~
+name: red-end
+type: end-screen
+text[content]: `I like red too, bye!`
+
+Blue was chosen
+----------------
+name: chose-blue
+
+End of Blue
+~~~~~~~~~~~
+name: blue-end
+type: end-screen
+text[content]: `Blue is okay, bye!`
