@@ -27,8 +27,8 @@ Example
 
    question[multiple-choice]:`
      Hi {@msisdn}. What is your favourite colour?
-     1. Red {$red}
-     2. Blue {$blue}
+     1. Red {=red}
+     2. Blue {=blue}
    `
    routes:
      red: chose-red

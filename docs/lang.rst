@@ -198,8 +198,8 @@ for example, this allows us to define routes and save values for the choices:
 
    question[multiple-choice]:`
      Hi {@msisdn}. What is your favourite colour?
-     1. Red {$red}
-     2. Blue {$blue}
+     1. Red {=red}
+     2. Blue {=blue}
    `
    routes:
      red: chose-red
