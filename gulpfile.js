@@ -24,7 +24,7 @@ gulp.task('build', function() {
 
 
 gulp.task('test', ['build'], function() {
-  return gulp.src('tests/numl.test.js')
+  return gulp.src(['tests/setup.js', 'tests/**/*.test.js'])
     .pipe(mocha());
 });
 
