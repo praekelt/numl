@@ -3,15 +3,12 @@ Example
 
 .. code::
 
-   Colour Dialogue
-   ===============
+   # Colour Dialogue
 
-   Start
-   -----
+   ## Start
    name: start
 
-   User dials in
-   ~~~~~~~~~~~~~
+   ### User dials in
    type: dial-event
    name: user-dials-in
    channels:
@@ -19,12 +16,10 @@ Example
       -[channel] *120*456#
 
 
-   Favourite Colour
-   ~~~~~~~~~~~~~~~~
+   ### Favourite Colour
    name: fav-colour
    type: choice
    save: colour
-
    question[multiple-choice]:`
      Hi {@msisdn}. What is your favourite colour?
      1. Red {=red}
@@ -35,23 +30,19 @@ Example
      blue: chose-blue
 
 
-   Red was chosen
-   --------------
+   ## Red was chosen
    name: chose-red
 
-   End of Red
-   ~~~~~~~~~~
+   ### End of Red
    name: red-end
    type: end
    text[content]: I like red too, bye!
    `
 
-   Blue was chosen
-   ----------------
+   ## Blue was chosen
    name: chose-blue
 
-   End of Blue
-   ~~~~~~~~~~~
+   ### End of Blue
    name: blue-end
    type: end
    text[content]: Blue is okay, bye!
