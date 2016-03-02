@@ -1,15 +1,7 @@
 {
-  var toCamelCase = require('to-camel-case');
-  var extend = require('lodash/extend');
-  var fromPairs = require('lodash/fromPairs');
-
-  function conj(a, b) {
-    return extend({}, a, b);
-  }
-
-  function parseProperty(k, v) {
-    return [toCamelCase(k), v];
-  }
+  var parse = require('./parsers');
+  var utils = require('./utils');
+  var conj = utils.conj;
 }
 
 
@@ -68,16 +60,17 @@ block 'block'
 
 properties 'properties'
   = properties:(p:property ws* { return p; })*
-  { return fromPairs(properties); }
+  { return parse.properties(properties); }
 
 
 property 'property'
-  = symbolProperty
+  = property:symbolProperty
+  { return parse.property(property); }
 
 
 symbolProperty 'symbol property'
   = key:symbol '[symbol]'? ':' linews* value:symbol
-  { return parseProperty(key, value); }
+  { return [key, value]; }
 
 
 symbol 'symbol'

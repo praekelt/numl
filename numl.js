@@ -139,35 +139,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c22 = function(title, properties) { return conj(properties, {title: title}); },
 	        peg$c23 = { type: "other", description: "properties" },
 	        peg$c24 = function(p) { return p; },
-	        peg$c25 = function(properties) { return fromPairs(properties); },
+	        peg$c25 = function(properties) { return parse.properties(properties); },
 	        peg$c26 = { type: "other", description: "property" },
-	        peg$c27 = { type: "other", description: "symbol property" },
-	        peg$c28 = null,
-	        peg$c29 = "[symbol]",
-	        peg$c30 = { type: "literal", value: "[symbol]", description: "\"[symbol]\"" },
-	        peg$c31 = ":",
-	        peg$c32 = { type: "literal", value: ":", description: "\":\"" },
-	        peg$c33 = function(key, value) { return parseProperty(key, value); },
-	        peg$c34 = { type: "other", description: "symbol" },
-	        peg$c35 = function() { return text(); },
-	        peg$c36 = { type: "other", description: "-" },
-	        peg$c37 = "-",
-	        peg$c38 = { type: "literal", value: "-", description: "\"-\"" },
-	        peg$c39 = { type: "other", description: "digit" },
-	        peg$c40 = /^[0-9]/,
-	        peg$c41 = { type: "class", value: "[0-9]", description: "[0-9]" },
-	        peg$c42 = { type: "other", description: "lower case letter" },
-	        peg$c43 = /^[a-z]/,
-	        peg$c44 = { type: "class", value: "[a-z]", description: "[a-z]" },
-	        peg$c45 = { type: "other", description: "text" },
-	        peg$c46 = /^[^\t\n\r]/,
-	        peg$c47 = { type: "class", value: "[^\\t\\n\\r]", description: "[^\\t\\n\\r]" },
-	        peg$c48 = { type: "other", description: "whitespace" },
-	        peg$c49 = /^[ \t\n\r]/,
-	        peg$c50 = { type: "class", value: "[ \\t\\n\\r]", description: "[ \\t\\n\\r]" },
-	        peg$c51 = { type: "other", description: "line whitespace" },
-	        peg$c52 = /^[ \t\r]/,
-	        peg$c53 = { type: "class", value: "[ \\t\\r]", description: "[ \\t\\r]" },
+	        peg$c27 = function(property) { return parse.property(property); },
+	        peg$c28 = { type: "other", description: "symbol property" },
+	        peg$c29 = null,
+	        peg$c30 = "[symbol]",
+	        peg$c31 = { type: "literal", value: "[symbol]", description: "\"[symbol]\"" },
+	        peg$c32 = ":",
+	        peg$c33 = { type: "literal", value: ":", description: "\":\"" },
+	        peg$c34 = function(key, value) { return [key, value]; },
+	        peg$c35 = { type: "other", description: "symbol" },
+	        peg$c36 = function() { return text(); },
+	        peg$c37 = { type: "other", description: "-" },
+	        peg$c38 = "-",
+	        peg$c39 = { type: "literal", value: "-", description: "\"-\"" },
+	        peg$c40 = { type: "other", description: "digit" },
+	        peg$c41 = /^[0-9]/,
+	        peg$c42 = { type: "class", value: "[0-9]", description: "[0-9]" },
+	        peg$c43 = { type: "other", description: "lower case letter" },
+	        peg$c44 = /^[a-z]/,
+	        peg$c45 = { type: "class", value: "[a-z]", description: "[a-z]" },
+	        peg$c46 = { type: "other", description: "text" },
+	        peg$c47 = /^[^\t\n\r]/,
+	        peg$c48 = { type: "class", value: "[^\\t\\n\\r]", description: "[^\\t\\n\\r]" },
+	        peg$c49 = { type: "other", description: "whitespace" },
+	        peg$c50 = /^[ \t\n\r]/,
+	        peg$c51 = { type: "class", value: "[ \\t\\n\\r]", description: "[ \\t\\n\\r]" },
+	        peg$c52 = { type: "other", description: "line whitespace" },
+	        peg$c53 = /^[ \t\r]/,
+	        peg$c54 = { type: "class", value: "[ \\t\\r]", description: "[ \\t\\r]" },
 
 	        peg$currPos          = 0,
 	        peg$reportedPos      = 0,
@@ -836,7 +837,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      s0 = peg$parsesymbolProperty();
+	      s0 = peg$currPos;
+	      s1 = peg$parsesymbolProperty();
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c27(s1);
+	      }
+	      s0 = s1;
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
@@ -853,23 +860,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      s0 = peg$currPos;
 	      s1 = peg$parsesymbol();
 	      if (s1 !== peg$FAILED) {
-	        if (input.substr(peg$currPos, 8) === peg$c29) {
-	          s2 = peg$c29;
+	        if (input.substr(peg$currPos, 8) === peg$c30) {
+	          s2 = peg$c30;
 	          peg$currPos += 8;
 	        } else {
 	          s2 = peg$FAILED;
-	          if (peg$silentFails === 0) { peg$fail(peg$c30); }
+	          if (peg$silentFails === 0) { peg$fail(peg$c31); }
 	        }
 	        if (s2 === peg$FAILED) {
-	          s2 = peg$c28;
+	          s2 = peg$c29;
 	        }
 	        if (s2 !== peg$FAILED) {
 	          if (input.charCodeAt(peg$currPos) === 58) {
-	            s3 = peg$c31;
+	            s3 = peg$c32;
 	            peg$currPos++;
 	          } else {
 	            s3 = peg$FAILED;
-	            if (peg$silentFails === 0) { peg$fail(peg$c32); }
+	            if (peg$silentFails === 0) { peg$fail(peg$c33); }
 	          }
 	          if (s3 !== peg$FAILED) {
 	            s4 = [];
@@ -882,7 +889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              s5 = peg$parsesymbol();
 	              if (s5 !== peg$FAILED) {
 	                peg$reportedPos = s0;
-	                s1 = peg$c33(s1, s5);
+	                s1 = peg$c34(s1, s5);
 	                s0 = s1;
 	              } else {
 	                peg$currPos = s0;
@@ -907,7 +914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c27); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c28); }
 	      }
 
 	      return s0;
@@ -944,7 +951,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        if (s2 !== peg$FAILED) {
 	          peg$reportedPos = s0;
-	          s1 = peg$c35();
+	          s1 = peg$c36();
 	          s0 = s1;
 	        } else {
 	          peg$currPos = s0;
@@ -957,7 +964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c34); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c35); }
 	      }
 
 	      return s0;
@@ -968,16 +975,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      peg$silentFails++;
 	      if (input.charCodeAt(peg$currPos) === 45) {
-	        s0 = peg$c37;
+	        s0 = peg$c38;
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c38); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c39); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c36); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c37); }
 	      }
 
 	      return s0;
@@ -987,17 +994,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c40.test(input.charAt(peg$currPos))) {
+	      if (peg$c41.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c41); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c42); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c39); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c40); }
 	      }
 
 	      return s0;
@@ -1007,17 +1014,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c43.test(input.charAt(peg$currPos))) {
+	      if (peg$c44.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c44); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c45); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c42); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c43); }
 	      }
 
 	      return s0;
@@ -1029,22 +1036,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      peg$silentFails++;
 	      s0 = peg$currPos;
 	      s1 = [];
-	      if (peg$c46.test(input.charAt(peg$currPos))) {
+	      if (peg$c47.test(input.charAt(peg$currPos))) {
 	        s2 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s2 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c47); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c48); }
 	      }
 	      if (s2 !== peg$FAILED) {
 	        while (s2 !== peg$FAILED) {
 	          s1.push(s2);
-	          if (peg$c46.test(input.charAt(peg$currPos))) {
+	          if (peg$c47.test(input.charAt(peg$currPos))) {
 	            s2 = input.charAt(peg$currPos);
 	            peg$currPos++;
 	          } else {
 	            s2 = peg$FAILED;
-	            if (peg$silentFails === 0) { peg$fail(peg$c47); }
+	            if (peg$silentFails === 0) { peg$fail(peg$c48); }
 	          }
 	        }
 	      } else {
@@ -1052,13 +1059,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      if (s1 !== peg$FAILED) {
 	        peg$reportedPos = s0;
-	        s1 = peg$c35();
+	        s1 = peg$c36();
 	      }
 	      s0 = s1;
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c45); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c46); }
 	      }
 
 	      return s0;
@@ -1068,17 +1075,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c49.test(input.charAt(peg$currPos))) {
+	      if (peg$c50.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c50); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c51); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c48); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c49); }
 	      }
 
 	      return s0;
@@ -1088,34 +1095,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c52.test(input.charAt(peg$currPos))) {
+	      if (peg$c53.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c53); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c54); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c51); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c52); }
 	      }
 
 	      return s0;
 	    }
 
 
-	      var toCamelCase = __webpack_require__(2);
-	      var extend = __webpack_require__(5);
-	      var fromPairs = __webpack_require__(39);
-
-	      function conj(a, b) {
-	        return extend({}, a, b);
-	      }
-
-	      function parseProperty(k, v) {
-	        return [toCamelCase(k), v];
-	      }
+	      var parse = __webpack_require__(2);
+	      var utils = __webpack_require__(9);
+	      var conj = utils.conj;
 
 
 	    peg$result = peg$startRuleFunction();
@@ -1141,8 +1140,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
+	exports.property = __webpack_require__(3);
+	exports.properties = __webpack_require__(7);
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var toCamelCase = __webpack_require__(4);
+
+
+	function parse(property) {
+		return [toCamelCase(property[0]), property[1]];
+	}
+
+
+	module.exports = parse;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 	
-	var space = __webpack_require__(3)
+	var space = __webpack_require__(5)
 
 	/**
 	 * Export.
@@ -1165,11 +1187,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var clean = __webpack_require__(4)
+	var clean = __webpack_require__(6)
 
 	/**
 	 * Export.
@@ -1192,7 +1214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	
@@ -1263,22 +1285,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(6);
+	var fromPairs = __webpack_require__(8);
+
+
+	function parse(properties) {
+		return fromPairs(properties);
+	}
+
+
+	module.exports = parse;
+
+
 
 
 /***/ },
-/* 6 */
+/* 8 */
+/***/ function(module, exports) {
+
+	/**
+	 * The inverse of `_.toPairs`; this method returns an object composed
+	 * from key-value `pairs`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Array
+	 * @param {Array} pairs The key-value pairs.
+	 * @returns {Object} Returns the new object.
+	 * @example
+	 *
+	 * _.fromPairs([['fred', 30], ['barney', 40]]);
+	 * // => { 'fred': 30, 'barney': 40 }
+	 */
+	function fromPairs(pairs) {
+	  var index = -1,
+	      length = pairs ? pairs.length : 0,
+	      result = {};
+
+	  while (++index < length) {
+	    var pair = pairs[index];
+	    result[pair[0]] = pair[1];
+	  }
+	  return result;
+	}
+
+	module.exports = fromPairs;
+
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(7),
-	    copyObject = __webpack_require__(9),
-	    createAssigner = __webpack_require__(11),
-	    isArrayLike = __webpack_require__(13),
-	    isPrototype = __webpack_require__(24),
-	    keysIn = __webpack_require__(25);
+	var extend = __webpack_require__(10);
+
+
+	function conj(a, b) {
+		return extend({}, a, b);
+	}
+
+
+	exports.conj = conj;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(11);
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assignValue = __webpack_require__(12),
+	    copyObject = __webpack_require__(14),
+	    createAssigner = __webpack_require__(16),
+	    isArrayLike = __webpack_require__(18),
+	    isPrototype = __webpack_require__(29),
+	    keysIn = __webpack_require__(30);
 
 	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
 	var nonEnumShadows = !({ 'valueOf': 1 }).propertyIsEnumerable('valueOf');
@@ -1326,10 +1413,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(8);
+	var eq = __webpack_require__(13);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -1359,7 +1446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/**
@@ -1400,10 +1487,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var copyObjectWith = __webpack_require__(10);
+	var copyObjectWith = __webpack_require__(15);
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -1422,10 +1509,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(7);
+	var assignValue = __webpack_require__(12);
 
 	/**
 	 * This function is like `copyObject` except that it accepts a function to
@@ -1460,11 +1547,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isIterateeCall = __webpack_require__(12),
-	    rest = __webpack_require__(20);
+	var isIterateeCall = __webpack_require__(17),
+	    rest = __webpack_require__(25);
 
 	/**
 	 * Creates a function like `_.assign`.
@@ -1503,13 +1590,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(8),
-	    isArrayLike = __webpack_require__(13),
-	    isIndex = __webpack_require__(19),
-	    isObject = __webpack_require__(17);
+	var eq = __webpack_require__(13),
+	    isArrayLike = __webpack_require__(18),
+	    isIndex = __webpack_require__(24),
+	    isObject = __webpack_require__(22);
 
 	/**
 	 * Checks if the given arguments are from an iteratee call.
@@ -1537,12 +1624,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 13 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(14),
-	    isFunction = __webpack_require__(16),
-	    isLength = __webpack_require__(18);
+	var getLength = __webpack_require__(19),
+	    isFunction = __webpack_require__(21),
+	    isLength = __webpack_require__(23);
 
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -1576,10 +1663,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 14 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(15);
+	var baseProperty = __webpack_require__(20);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -1597,7 +1684,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/**
@@ -1617,10 +1704,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 16 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(17);
+	var isObject = __webpack_require__(22);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]',
@@ -1663,7 +1750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 22 */
 /***/ function(module, exports) {
 
 	/**
@@ -1698,7 +1785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 23 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -1737,7 +1824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 24 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -1764,11 +1851,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(21),
-	    toInteger = __webpack_require__(22);
+	var apply = __webpack_require__(26),
+	    toInteger = __webpack_require__(27);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -1831,7 +1918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 21 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -1859,10 +1946,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 22 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toNumber = __webpack_require__(23);
+	var toNumber = __webpack_require__(28);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -1909,11 +1996,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 23 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(16),
-	    isObject = __webpack_require__(17);
+	var isFunction = __webpack_require__(21),
+	    isObject = __webpack_require__(22);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -1974,7 +2061,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 24 */
+/* 29 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -1998,13 +2085,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 25 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseKeysIn = __webpack_require__(26),
-	    indexKeys = __webpack_require__(32),
-	    isIndex = __webpack_require__(19),
-	    isPrototype = __webpack_require__(24);
+	var baseKeysIn = __webpack_require__(31),
+	    indexKeys = __webpack_require__(37),
+	    isIndex = __webpack_require__(24),
+	    isPrototype = __webpack_require__(29);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2058,11 +2145,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 26 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Reflect = __webpack_require__(27),
-	    iteratorToArray = __webpack_require__(31);
+	var Reflect = __webpack_require__(32),
+	    iteratorToArray = __webpack_require__(36);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -2100,10 +2187,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 27 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(28);
+	var root = __webpack_require__(33);
 
 	/** Built-in value references. */
 	var Reflect = root.Reflect;
@@ -2112,10 +2199,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 28 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module, global) {var checkGlobal = __webpack_require__(30);
+	/* WEBPACK VAR INJECTION */(function(module, global) {var checkGlobal = __webpack_require__(35);
 
 	/** Used to determine if values are of the language type `Object`. */
 	var objectTypes = {
@@ -2157,10 +2244,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = root;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module), (function() { return this; }())))
 
 /***/ },
-/* 29 */
+/* 34 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2176,7 +2263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 30 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/**
@@ -2194,7 +2281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 31 */
+/* 36 */
 /***/ function(module, exports) {
 
 	/**
@@ -2218,14 +2305,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 32 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseTimes = __webpack_require__(33),
-	    isArguments = __webpack_require__(34),
-	    isArray = __webpack_require__(37),
-	    isLength = __webpack_require__(18),
-	    isString = __webpack_require__(38);
+	var baseTimes = __webpack_require__(38),
+	    isArguments = __webpack_require__(39),
+	    isArray = __webpack_require__(42),
+	    isLength = __webpack_require__(23),
+	    isString = __webpack_require__(43);
 
 	/**
 	 * Creates an array of index keys for `object` values of arrays,
@@ -2248,7 +2335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 33 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/**
@@ -2274,10 +2361,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 34 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLikeObject = __webpack_require__(35);
+	var isArrayLikeObject = __webpack_require__(40);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -2323,11 +2410,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 35 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(13),
-	    isObjectLike = __webpack_require__(36);
+	var isArrayLike = __webpack_require__(18),
+	    isObjectLike = __webpack_require__(41);
 
 	/**
 	 * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -2360,7 +2447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 36 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/**
@@ -2394,7 +2481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 37 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/**
@@ -2426,11 +2513,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 38 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(37),
-	    isObjectLike = __webpack_require__(36);
+	var isArray = __webpack_require__(42),
+	    isObjectLike = __webpack_require__(41);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -2466,39 +2553,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = isString;
-
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	/**
-	 * The inverse of `_.toPairs`; this method returns an object composed
-	 * from key-value `pairs`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Array
-	 * @param {Array} pairs The key-value pairs.
-	 * @returns {Object} Returns the new object.
-	 * @example
-	 *
-	 * _.fromPairs([['fred', 30], ['barney', 40]]);
-	 * // => { 'fred': 30, 'barney': 40 }
-	 */
-	function fromPairs(pairs) {
-	  var index = -1,
-	      length = pairs ? pairs.length : 0,
-	      result = {};
-
-	  while (++index < length) {
-	    var pair = pairs[index];
-	    result[pair[0]] = pair[1];
-	  }
-	  return result;
-	}
-
-	module.exports = fromPairs;
 
 
 /***/ }
