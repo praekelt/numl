@@ -4,7 +4,9 @@ var numl = require('../numl');
 describe("numl", function() {
   it("should parse dialogue titles", function() {
     numl(`
-    # foo
+
+      # foo
+
     `)
     .should.shallowDeepEqual({
        title: 'foo'
@@ -12,80 +14,52 @@ describe("numl", function() {
 
     numl(`
 
-      #foo
+      ## 23-!@$%^&*_ rar ポケモン
 
     `)
     .should.shallowDeepEqual({
-       title: 'foo'
+       title: '23-!@$%^&*_ rar ポケモン'
     });
   });
 
   it("should parse sequence titles", function() {
     numl(`
-    # foo
-    ## bar
-    ## baz
-    `)
-    .should.shallowDeepEqual({
-       title: 'foo',
-       sequences: [{
-         title: 'bar'
-       }, {
-         title: 'baz'
-       }]
-    });
 
-    numl(`
+      # _
 
-      #foo
+      ## foo
 
-      ##bar
-
-      ##baz
+      ## 23-!@$%^&*_ rar ポケモン
 
     `)
     .should.shallowDeepEqual({
        sequences: [{
-         title: 'bar'
+         title: 'foo'
        }, {
-         title: 'baz'
+         title: '23-!@$%^&*_ rar ポケモン'
        }]
     });
   });
 
   it("should parse block titles", function() {
     numl(`
-    # foo
-    ## bar
-    ### quux
-    ### corge
+
+    # _
+
+    ## _
+
+    ### foo
+
+    ### 23-!@$%^&*_ rar ポケモン
+
     `)
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          title: 'quux'
-        }, {
-          title: 'corge'
-        }]
-      }]
-    });
-
-    numl(`
-      #foo
-
-      ##bar
-
-      ###quux
-
-      ###corge
-    `)
-    .should.shallowDeepEqual({
-      sequences: [{
-        blocks: [{
-          title: 'quux'
-        }, {
-          title: 'corge'
-        }]
+         title: 'foo'
+       }, {
+         title: '23-!@$%^&*_ rar ポケモン'
+       }]
       }]
     });
   });
