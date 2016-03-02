@@ -869,29 +869,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function peg$parsesymbolProperty() {
-	      var s0, s1, s2, s3, s4, s5;
+	      var s0, s1, s2, s3, s4, s5, s6, s7;
 
 	      peg$silentFails++;
 	      s0 = peg$currPos;
 	      s1 = peg$parsesymbol();
 	      if (s1 !== peg$FAILED) {
-	        if (input.substr(peg$currPos, 8) === peg$c30) {
-	          s2 = peg$c30;
-	          peg$currPos += 8;
-	        } else {
-	          s2 = peg$FAILED;
-	          if (peg$silentFails === 0) { peg$fail(peg$c31); }
-	        }
-	        if (s2 === peg$FAILED) {
-	          s2 = peg$c29;
+	        s2 = [];
+	        s3 = peg$parselineWs();
+	        while (s3 !== peg$FAILED) {
+	          s2.push(s3);
+	          s3 = peg$parselineWs();
 	        }
 	        if (s2 !== peg$FAILED) {
-	          if (input.charCodeAt(peg$currPos) === 58) {
-	            s3 = peg$c32;
-	            peg$currPos++;
+	          if (input.substr(peg$currPos, 8) === peg$c30) {
+	            s3 = peg$c30;
+	            peg$currPos += 8;
 	          } else {
 	            s3 = peg$FAILED;
-	            if (peg$silentFails === 0) { peg$fail(peg$c33); }
+	            if (peg$silentFails === 0) { peg$fail(peg$c31); }
+	          }
+	          if (s3 === peg$FAILED) {
+	            s3 = peg$c29;
 	          }
 	          if (s3 !== peg$FAILED) {
 	            s4 = [];
@@ -901,11 +900,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	              s5 = peg$parselineWs();
 	            }
 	            if (s4 !== peg$FAILED) {
-	              s5 = peg$parsesymbol();
+	              if (input.charCodeAt(peg$currPos) === 58) {
+	                s5 = peg$c32;
+	                peg$currPos++;
+	              } else {
+	                s5 = peg$FAILED;
+	                if (peg$silentFails === 0) { peg$fail(peg$c33); }
+	              }
 	              if (s5 !== peg$FAILED) {
-	                peg$reportedPos = s0;
-	                s1 = peg$c34(s1, s5);
-	                s0 = s1;
+	                s6 = [];
+	                s7 = peg$parselineWs();
+	                while (s7 !== peg$FAILED) {
+	                  s6.push(s7);
+	                  s7 = peg$parselineWs();
+	                }
+	                if (s6 !== peg$FAILED) {
+	                  s7 = peg$parsesymbol();
+	                  if (s7 !== peg$FAILED) {
+	                    peg$reportedPos = s0;
+	                    s1 = peg$c34(s1, s7);
+	                    s0 = s1;
+	                  } else {
+	                    peg$currPos = s0;
+	                    s0 = peg$c0;
+	                  }
+	                } else {
+	                  peg$currPos = s0;
+	                  s0 = peg$c0;
+	                }
 	              } else {
 	                peg$currPos = s0;
 	                s0 = peg$c0;

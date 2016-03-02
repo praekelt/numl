@@ -69,7 +69,7 @@ property 'property'
 
 
 symbolProperty 'symbol property'
-  = key:symbol '[symbol]'? ':' lineWs* value:symbol
+  = key:symbol lineWs* '[symbol]'? lineWs* ':' lineWs* value:symbol
   { return [key, value]; }
 
 
