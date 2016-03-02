@@ -74,7 +74,8 @@ symbolProperty 'symbol property'
 
 
 textProperty 'text property'
-  = key:symbol '[text]'? ':' lineWs* '`' newline* value:text newline* '`'
+  = key:symbol lineWs* '[text]'? lineWs* ':' lineWs*
+    '`' newline*value:text newline* '`'
   { return [key, parse.text(value)]; }
 
 

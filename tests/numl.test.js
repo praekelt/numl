@@ -214,7 +214,7 @@ describe("numl", function() {
         waldo
           fred
       \`
-      rar: \`
+      rar [text]: \`
         23-!@$%^&*_ rar ポケモン
       \`
       lorem: \`\`
