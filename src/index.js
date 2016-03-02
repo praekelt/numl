@@ -1,3 +1,4 @@
+var parser = require('./parser.pegjs');
 numl.SyntaxError = parser.SyntaxError;
 
 
