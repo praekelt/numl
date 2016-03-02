@@ -1,7 +1,7 @@
 {
-  var extend = options.extend;
-  var fromPairs = options.fromPairs;
-  var toCamelCase = options.toCamelCase;
+  var toCamelCase = require('to-camel-case');
+  var extend = require('lodash/extend');
+  var fromPairs = require('lodash/fromPairs');
 
   function conj(a, b) {
     return extend({}, a, b);

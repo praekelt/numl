@@ -55,17 +55,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var parser = __webpack_require__(1);
-	var toCamelCase = __webpack_require__(2);
-	var extend = __webpack_require__(5);
-	var fromPairs = __webpack_require__(39);
 
 
 	function numl(input) {
-	  return parser.parse(input, {
-	    extend: extend,
-	    fromPairs: fromPairs,
-	    toCamelCase: toCamelCase
-	  });
+	  return parser.parse(input);
 	}
 
 
@@ -75,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (function() {
 	  /*
@@ -1112,9 +1105,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 
-	      var extend = options.extend;
-	      var fromPairs = options.fromPairs;
-	      var toCamelCase = options.toCamelCase;
+	      var toCamelCase = __webpack_require__(2);
+	      var extend = __webpack_require__(5);
+	      var fromPairs = __webpack_require__(39);
 
 	      function conj(a, b) {
 	        return extend({}, a, b);
