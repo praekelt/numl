@@ -55,12 +55,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var parser = __webpack_require__(1);
-	numl.SyntaxError = parser.SyntaxError;
 
 
 	function numl(input) {
 	  return parser.parse(input);
 	}
+
+
+	numl.SyntaxError = parser.SyntaxError;
+	module.exports = numl;
 
 
 /***/ },
