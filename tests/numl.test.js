@@ -192,4 +192,39 @@ describe("numl", function() {
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
   });
+
+  it("should parse nested properties", function() {
+    numl(`
+      # _
+      ## _
+      foo:
+        bar:
+
+          baz: quux-corge
+
+          grault[properties]:
+            garply [properties]:
+              waldo: fred
+
+      ### _
+      win: rar
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        foo: {
+          bar: {
+            baz: 'quux-corge',
+            grault: {
+              garply: {
+                waldo: 'fred'
+              }
+            }
+          }
+        },
+        blocks: [{
+          win: 'rar'
+        }]
+      }]
+    });
+  });
 });

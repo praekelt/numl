@@ -64,8 +64,13 @@ properties 'properties'
 
 
 property 'property'
-  = property:symbolProperty
+  = property:(symbolProperty / nestedProperty)
   { return parse.property(property); }
+
+
+nestedProperty 'nested properties'
+  = key:symbol lineWs* '[properties]'? lineWs* ':' newline ws* value:properties
+  { return [key, value]; }
 
 
 symbolProperty 'symbol property'
@@ -93,6 +98,10 @@ lcletter 'lower case letter'
 text 'text'
   = [^\t\n\r]+
   { return text(); }
+
+
+newline 'new line'
+  = [\n]
 
 
 ws 'whitespace'
