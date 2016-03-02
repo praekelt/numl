@@ -127,11 +127,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c8 = function(value) { return value; },
 	        peg$c9 = { type: "other", description: "sequences" },
 	        peg$c10 = { type: "other", description: "sequence" },
-	        peg$c11 = function(title, blocks) {
-	            return {
+	        peg$c11 = function(title, properties, blocks) {
+	            return conj(properties, {
 	              title: title,
 	              blocks: blocks
-	            };
+	            });
 	          },
 	        peg$c12 = { type: "other", description: "sequence title" },
 	        peg$c13 = "##",
@@ -486,7 +486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function peg$parsesequence() {
-	      var s0, s1, s2, s3, s4, s5;
+	      var s0, s1, s2, s3, s4, s5, s6, s7;
 
 	      peg$silentFails++;
 	      s0 = peg$currPos;
@@ -499,12 +499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          s3 = peg$parsews();
 	        }
 	        if (s2 !== peg$FAILED) {
-	          s3 = [];
-	          s4 = peg$parseblock();
-	          while (s4 !== peg$FAILED) {
-	            s3.push(s4);
-	            s4 = peg$parseblock();
-	          }
+	          s3 = peg$parseproperties();
 	          if (s3 !== peg$FAILED) {
 	            s4 = [];
 	            s5 = peg$parsews();
@@ -513,9 +508,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	              s5 = peg$parsews();
 	            }
 	            if (s4 !== peg$FAILED) {
-	              peg$reportedPos = s0;
-	              s1 = peg$c11(s1, s3);
-	              s0 = s1;
+	              s5 = peg$parseblocks();
+	              if (s5 !== peg$FAILED) {
+	                s6 = [];
+	                s7 = peg$parsews();
+	                while (s7 !== peg$FAILED) {
+	                  s6.push(s7);
+	                  s7 = peg$parsews();
+	                }
+	                if (s6 !== peg$FAILED) {
+	                  peg$reportedPos = s0;
+	                  s1 = peg$c11(s1, s3, s5);
+	                  s0 = s1;
+	                } else {
+	                  peg$currPos = s0;
+	                  s0 = peg$c0;
+	                }
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c0;
+	              }
 	            } else {
 	              peg$currPos = s0;
 	              s0 = peg$c0;

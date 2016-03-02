@@ -38,12 +38,12 @@ sequences 'sequences'
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* blocks:block* ws*
+  = title:sequenceTitle ws* properties:properties ws* blocks:blocks ws*
   {
-    return {
+    return conj(properties, {
       title: title,
       blocks: blocks
-    };
+    });
   }
 
 
