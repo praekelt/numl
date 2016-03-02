@@ -6,10 +6,10 @@ var fromPairs = require('lodash/fromPairs');
 
 function numl(input) {
   return parser.parse(input, {
-		extend: extend,
-		fromPairs: fromPairs,
-		toCamelCase: toCamelCase
-	});
+    extend: extend,
+    fromPairs: fromPairs,
+    toCamelCase: toCamelCase
+  });
 }
 
 
