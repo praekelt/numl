@@ -1,14 +1,22 @@
 {
+  var dedent = options.dedent;
   var extend = options.extend;
   var fromPairs = options.fromPairs;
   var toCamelCase = options.toCamelCase;
+
 
   function conj(a, b) {
     return extend({}, a, b);
   }
 
+
   function parseProperty(k, v) {
     return [toCamelCase(k), v];
+  }
+
+
+  function parseTextProperty(k, v) {
+    return parseProperty(k, dedent(v));
   }
 }
 
@@ -29,17 +37,17 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' linews* value:text
+  = '#' lineWs* value:lineText
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' linews* value:text
+  = '##' lineWs* value:lineText
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' linews* value:text
+  = '###' lineWs* value:lineText
   { return value; }
 
 
@@ -73,11 +81,39 @@ properties 'properties'
 
 property 'property'
   = symbolProperty
+  / textProperty
 
 
 symbolProperty 'symbol property'
-  = key:symbol '[symbol]'? ':' linews* value:symbol
+  = key:symbol '[symbol]'? ':' lineWs* value:symbol
   { return parseProperty(key, value); }
+
+
+textProperty 'text property'
+  = key:symbol '[text]'? ':' lineWs* '`' newline* value:text newline* '`'
+  { return parseTextProperty(key, value); }
+
+
+digit 'digit'
+  = [0-9]
+
+
+lcletter 'lower case letter'
+  = [a-z]
+
+
+dash '-'
+  = '-'
+
+
+text 'text'
+  = [^`]*
+  { return text(); }
+
+
+lineText 'line text'
+  = [^\t\n\r]+
+  { return text(); }
 
 
 symbol 'symbol'
@@ -89,22 +125,13 @@ dash '-'
   = '-'
 
 
-digit 'digit'
-  = [0-9]
-
-
-lcletter 'lower case letter'
-  = [a-z]
-
-
-text 'text'
-  = [^\t\n\r]+
-  { return text(); }
+newline 'new line'
+  = [\n]
 
 
 ws 'whitespace'
   = [ \t\n\r]
 
 
-linews 'line whitespace'
+lineWs 'line whitespace'
   = [ \t\r]

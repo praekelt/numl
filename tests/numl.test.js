@@ -1,4 +1,10 @@
 var numl = require('../numl');
+var dedent = require('dedent');
+
+
+function str(s) {
+  return dedent(s).trim();
+}
 
 
 describe("numl", function() {
@@ -191,5 +197,45 @@ describe("numl", function() {
     })
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
+  });
+
+  it("should parse text properties", function() {
+    numl(`
+      # _
+      ## _
+      ### _
+      foo: \`bar baz\`
+      baz: \`
+        quux
+          corge
+            grault
+      \`
+      garply[text]: \`
+        waldo
+          fred
+      \`
+      rar: \`
+        23-!@$%^&*_ rar ポケモン
+      \`
+      lorem: \`\`
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          foo: 'bar baz',
+          baz: str`
+            quux
+              corge
+                grault
+          `,
+          garply: str`
+            waldo
+              fred
+         `,
+          rar: '23-!@$%^&*_ rar ポケモン',
+          lorem: ''
+        }]
+      }]
+    });
   });
 });
