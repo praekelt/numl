@@ -76,7 +76,7 @@ property 'property'
 
 
 symbolProperty 'symbol property'
-  = key:symbol '[symbol]'? ':' linews* value:symbol ws*
+  = key:symbol '[symbol]'? ':' linews* value:symbol
   { return parseProperty(key, value); }
 
 

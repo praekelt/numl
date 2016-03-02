@@ -854,7 +854,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function peg$parsesymbolProperty() {
-	      var s0, s1, s2, s3, s4, s5, s6, s7;
+	      var s0, s1, s2, s3, s4, s5;
 
 	      peg$silentFails++;
 	      s0 = peg$currPos;
@@ -888,20 +888,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (s4 !== peg$FAILED) {
 	              s5 = peg$parsesymbol();
 	              if (s5 !== peg$FAILED) {
-	                s6 = [];
-	                s7 = peg$parsews();
-	                while (s7 !== peg$FAILED) {
-	                  s6.push(s7);
-	                  s7 = peg$parsews();
-	                }
-	                if (s6 !== peg$FAILED) {
-	                  peg$reportedPos = s0;
-	                  s1 = peg$c33(s1, s5);
-	                  s0 = s1;
-	                } else {
-	                  peg$currPos = s0;
-	                  s0 = peg$c0;
-	                }
+	                peg$reportedPos = s0;
+	                s1 = peg$c33(s1, s5);
+	                s0 = s1;
 	              } else {
 	                peg$currPos = s0;
 	                s0 = peg$c0;
