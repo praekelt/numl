@@ -14,7 +14,7 @@ describe("numl", function() {
 
     numl(`
 
-      ## 23-!@$%^&*_ rar ポケモン
+      # 23-!@$%^&*_ rar ポケモン
 
     `)
     .should.shallowDeepEqual({
@@ -44,13 +44,13 @@ describe("numl", function() {
   it("should parse block titles", function() {
     numl(`
 
-    # _
+      # _
 
-    ## _
+      ## _
 
-    ### foo
+      ### foo
 
-    ### 23-!@$%^&*_ rar ポケモン
+      ### 23-!@$%^&*_ rar ポケモン
 
     `)
     .should.shallowDeepEqual({
