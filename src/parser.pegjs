@@ -1,15 +1,7 @@
 {
-  var extend = options.extend;
-  var fromPairs = options.fromPairs;
-  var toCamelCase = options.toCamelCase;
-
-  function conj(a, b) {
-    return extend({}, a, b);
-  }
-
-  function parseProperty(k, v) {
-    return [toCamelCase(k), v];
-  }
+  var parse = require('./parsers');
+  var utils = require('./utils');
+  var conj = utils.conj;
 }
 
 
@@ -68,22 +60,22 @@ block 'block'
 
 properties 'properties'
   = properties:(p:property ws* { return p; })*
-  { return fromPairs(properties); }
+  { return parse.properties(properties); }
 
 
 property 'property'
-  = symbolProperty
-  / numberProperty
+  = property:(symbolProperty / numberProperty)
+  { return parse.property(property); }
 
 
 symbolProperty 'symbol property'
   = key:symbol '[symbol]'? ':' linews* value:symbol
-  { return parseProperty(key, value); }
+  { return [key, value]; }
 
 
 numberProperty 'number property'
   = key:symbol '[number]'? ':' linews* value:number
-  { return parseProperty(key, value); }
+  { return [key, value]; }
 
 
 symbol 'symbol'
