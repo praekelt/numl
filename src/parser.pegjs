@@ -1,23 +1,7 @@
 {
-  var dedent = options.dedent;
-  var extend = options.extend;
-  var fromPairs = options.fromPairs;
-  var toCamelCase = options.toCamelCase;
-
-
-  function conj(a, b) {
-    return extend({}, a, b);
-  }
-
-
-  function parseProperty(k, v) {
-    return [toCamelCase(k), v];
-  }
-
-
-  function parseTextProperty(k, v) {
-    return parseProperty(k, dedent(v));
-  }
+  var parse = require('./parsers');
+  var utils = require('./utils');
+  var conj = utils.conj;
 }
 
 
@@ -76,22 +60,22 @@ block 'block'
 
 properties 'properties'
   = properties:(p:property ws* { return p; })*
-  { return fromPairs(properties); }
+  { return parse.properties(properties); }
 
 
 property 'property'
-  = symbolProperty
-  / textProperty
+  = property:(symbolProperty / textProperty)
+  { return parse.property(property); }
 
 
 symbolProperty 'symbol property'
   = key:symbol '[symbol]'? ':' lineWs* value:symbol
-  { return parseProperty(key, value); }
+  { return [key, value]; }
 
 
 textProperty 'text property'
   = key:symbol '[text]'? ':' lineWs* '`' newline* value:text newline* '`'
-  { return parseTextProperty(key, value); }
+  { return [key, parse.text(value)]; }
 
 
 digit 'digit'
