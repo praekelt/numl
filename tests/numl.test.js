@@ -69,18 +69,18 @@ describe("numl", function() {
       # _
       ## _
       foo:bar
-      garply-waldo:  fred
+      garply-waldo[symbol]:  fred
+      baz-quux-23 [symbol] : corge-21-grault
 
       ### _
-      baz-quux-23[symbol]: corge-21-grault
+      corge: grault
     `)
     .should.shallowDeepEqual({
       sequences: [{
         foo: 'bar',
         garplyWaldo: 'fred',
-        blocks: [{
-          bazQuux23: 'corge-21-grault'
-        }]
+        bazQuux23: 'corge-21-grault',
+        blocks: [{corge: 'grault'}]
       }]
     });
 
@@ -89,10 +89,10 @@ describe("numl", function() {
       ## _
       ### _
       foo:bar
-      garply-waldo:  fred
+      garply-waldo[symbol]:  fred
 
 
-      baz-quux-23[symbol]: corge-21-grault
+      baz-quux-23 [symbol] : corge-21-grault
     `)
     .should.shallowDeepEqual({
       sequences: [{

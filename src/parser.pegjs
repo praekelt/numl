@@ -21,17 +21,17 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' linews* value:text
+  = '#' lineWs* value:text
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' linews* value:text
+  = '##' lineWs* value:text
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' linews* value:text
+  = '###' lineWs* value:text
   { return value; }
 
 
@@ -69,7 +69,7 @@ property 'property'
 
 
 symbolProperty 'symbol property'
-  = key:symbol '[symbol]'? ':' linews* value:symbol
+  = key:symbol lineWs* '[symbol]'? lineWs* ':' lineWs* value:symbol
   { return [key, value]; }
 
 
@@ -123,5 +123,5 @@ ws 'whitespace'
   = [ \t\n\r]
 
 
-linews 'line whitespace'
+lineWs 'line whitespace'
   = [ \t\r]
