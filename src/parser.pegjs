@@ -74,7 +74,7 @@ symbolProperty 'symbol property'
 
 
 numberProperty 'number property'
-  = key:symbol '[number]'? ':' linews* value:number
+  = key:symbol lineWs* '[number]'? lineWs* ':' lineWs* value:number
   { return [key, value]; }
 
 

@@ -203,8 +203,8 @@ describe("numl", function() {
       corge: 0
       grault: 0.0
       garply: +23
-      waldo: -23.23e-23
-      fred[number]: -23.23
+      waldo[number]: -23.23e-23
+      fred [number] : -23.23
     `)
     .should.shallowDeepEqual({
       sequences: [{
