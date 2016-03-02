@@ -9,7 +9,7 @@ describe("numl", function() {
 
     `)
     .should.shallowDeepEqual({
-       title: 'foo'
+      title: 'foo'
     });
 
     numl(`
@@ -18,7 +18,7 @@ describe("numl", function() {
 
     `)
     .should.shallowDeepEqual({
-       title: '23-!@$%^&*_ rar ポケモン'
+      title: '23-!@$%^&*_ rar ポケモン'
     });
   });
 
@@ -33,11 +33,11 @@ describe("numl", function() {
 
     `)
     .should.shallowDeepEqual({
-       sequences: [{
-         title: 'foo'
+      sequences: [{
+        title: 'foo'
        }, {
-         title: '23-!@$%^&*_ rar ポケモン'
-       }]
+        title: '23-!@$%^&*_ rar ポケモン'
+      }]
     });
   });
 
@@ -56,10 +56,10 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-         title: 'foo'
-       }, {
-         title: '23-!@$%^&*_ rar ポケモン'
-       }]
+          title: 'foo'
+        }, {
+          title: '23-!@$%^&*_ rar ポケモン'
+        }]
       }]
     });
   });
@@ -81,7 +81,7 @@ describe("numl", function() {
           foo: 'bar',
           garplyWaldo: 'fred',
           bazQuux23: 'corge-21-grault'
-       }]
+        }]
       }]
     });
 
