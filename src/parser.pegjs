@@ -73,10 +73,16 @@ properties 'properties'
 
 property 'property'
   = symbolProperty
+  / numberProperty
 
 
 symbolProperty 'symbol property'
   = key:symbol '[symbol]'? ':' linews* value:symbol
+  { return parseProperty(key, value); }
+
+
+numberProperty 'number property'
+  = key:symbol '[number]'? ':' linews* value:number
   { return parseProperty(key, value); }
 
 
@@ -88,9 +94,28 @@ symbol 'symbol'
 dash '-'
   = '-'
 
+number 'number'
+  = sign? int frac? exp?
+  { return parseFloat(text()) }
+
+
+int 'integer'
+  = digit+
+  { return parseInt(text()) }
+
 
 digit 'digit'
   = [0-9]
+
+
+point = '.'
+sign = minus / plus
+e = [eE]
+exp = e (minus / plus)? digit+
+frac = point digit+
+minus = '-'
+plus = '+'
+zero = '0'
 
 
 lcletter 'lower case letter'

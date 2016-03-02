@@ -124,7 +124,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input or whitespace but "f" found.`);
+      `SyntaxError: Expected end of input or whitespace but "r" found.`);
 
     (function() {
       numl(`
@@ -191,5 +191,33 @@ describe("numl", function() {
     })
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
+  });
+
+  it("should parse number properties", function() {
+    numl(`
+      # _
+      ## _
+      ### _
+      baz: 23
+      quux: 23.23
+      corge: 0
+      grault: 0.0
+      garply: +23
+      waldo: -23.23e-23
+      fred[number]: -23.23
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          baz: 23,
+          quux: 23.23,
+          corge: 0,
+          grault: 0.0,
+          garply: +23,
+          waldo: -23.23e-23,
+          fred: -23.23
+        }]
+      }]
+    });
   });
 });
