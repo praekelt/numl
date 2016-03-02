@@ -33,6 +33,16 @@ dialogueTitle 'dialogue title'
   { return value; }
 
 
+sequenceTitle 'sequence title'
+  = '##' linews* value:text
+  { return value; }
+
+
+blockTitle 'block title'
+  = '###' linews* value:text
+  { return value; }
+
+
 sequences 'sequences'
   = (s:sequence ws* { return s; })*
 
@@ -47,11 +57,6 @@ sequence 'sequence'
   }
 
 
-sequenceTitle 'sequence title'
-  = '##' linews* value:text
-  { return value; }
-
-
 blocks 'blocks'
   = (b:block ws* { return b; })*
 
@@ -59,11 +64,6 @@ blocks 'blocks'
 block 'block'
   = title:blockTitle ws* properties:properties
   { return conj(properties, {title: title}); }
-
-
-blockTitle 'block title'
-  = '###' linews* value:text
-  { return value; }
 
 
 properties 'properties'
