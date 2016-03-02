@@ -14,12 +14,12 @@
 
 
 start
-  = ws* dialogue:dialogue
+  = ws* dialogue:dialogue ws*
   { return dialogue }
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* sequences:sequences ws*
+  = title:dialogueTitle ws* sequences:sequences
   {
     return {
       title: title,
@@ -34,11 +34,11 @@ dialogueTitle 'dialogue title'
 
 
 sequences 'sequences'
-  = sequence*
+  = (s:sequence ws* { return s; })*
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* properties:properties ws* blocks:blocks ws*
+  = title:sequenceTitle ws* properties:properties ws* blocks:blocks
   {
     return conj(properties, {
       title: title,
@@ -53,14 +53,12 @@ sequenceTitle 'sequence title'
 
 
 blocks 'blocks'
-  = block*
+  = (b:block ws* { return b; })*
 
 
 block 'block'
-  = title:blockTitle ws* properties:properties ws*
-  {
-    return conj(properties, {title: title});
-  }
+  = title:blockTitle ws* properties:properties
+  { return conj(properties, {title: title}); }
 
 
 blockTitle 'block title'
@@ -69,7 +67,7 @@ blockTitle 'block title'
 
 
 properties 'properties'
-  = properties:property*
+  = properties:(p:property ws* { return p; })*
   { return fromPairs(properties); }
 
 

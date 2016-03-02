@@ -113,7 +113,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "2" found.`);
+      `SyntaxError: Expected end of input or whitespace but "2" found.`);
 
     (function() {
       numl(`
@@ -124,7 +124,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "f" found.`);
+      `SyntaxError: Expected end of input or whitespace but "f" found.`);
 
     (function() {
       numl(`
@@ -135,7 +135,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "r" found.`);
+      `SyntaxError: Expected end of input or whitespace but "r" found.`);
 
     (function() {
       numl(`
@@ -146,7 +146,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "2" found`);
+      `SyntaxError: Expected end of input or whitespace but "2" found`);
 
     (function() {
       numl(`
@@ -157,7 +157,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "\\u30DD" found.`);
+      `SyntaxError: Expected end of input or whitespace but "\\u30DD" found.`);
 
     (function() {
       numl(`
@@ -168,7 +168,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "f" found.`);
+      `SyntaxError: Expected end of input or whitespace but "f" found.`);
 
     (function() {
       numl(`
@@ -179,7 +179,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "r" found.`);
+      `SyntaxError: Expected end of input or whitespace but "r" found.`);
 
     (function() {
       numl(`
@@ -190,6 +190,6 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input but "_" found.`);
+      `SyntaxError: Expected end of input or whitespace but "_" found.`);
   });
 });
