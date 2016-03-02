@@ -69,11 +69,11 @@ describe("numl", function() {
       # _
       ## _
       ### _
-      foo: bar
-      garply-waldo: fred
+      foo:bar
+      garply-waldo:  fred
 
 
-      baz-quux-23: corge-21-grault
+      baz-quux-23[symbol]: corge-21-grault
     `)
     .should.shallowDeepEqual({
       sequences: [{
@@ -94,7 +94,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "2" found.`);
 
     (function() {
       numl(`
@@ -105,7 +105,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "f" found.`);
 
     (function() {
       numl(`
@@ -116,7 +116,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "r" found.`);
 
     (function() {
       numl(`
@@ -127,7 +127,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "2" found`);
 
     (function() {
       numl(`
@@ -138,7 +138,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "\\u30DD" found.`);
 
     (function() {
       numl(`
@@ -149,7 +149,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "f" found.`);
 
     (function() {
       numl(`
@@ -160,7 +160,7 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "r" found.`);
 
     (function() {
       numl(`
@@ -171,6 +171,6 @@ describe("numl", function() {
       `);
     })
     .should.throw(
-      `TODO`);
+      `SyntaxError: Expected end of input but "_" found.`);
   });
 });

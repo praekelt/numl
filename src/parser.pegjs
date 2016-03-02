@@ -1,4 +1,15 @@
 {
+  var extend = options.extend;
+  var fromPairs = options.fromPairs;
+  var toCamelCase = options.toCamelCase;
+
+  function conj(a, b) {
+    return extend({}, a, b);
+  }
+
+  function parseProperty(k, v) {
+    return [toCamelCase(k), v];
+  }
 }
 
 
@@ -8,7 +19,7 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* sequences:sequence* ws*
+  = title:dialogueTitle ws* sequences:sequences ws*
   {
     return {
       title: title,
@@ -20,6 +31,10 @@ dialogue 'dialogue'
 dialogueTitle 'dialogue title'
   = '#' linews* value:text
   { return value; }
+
+
+sequences 'sequences'
+  = sequence*
 
 
 sequence 'sequence'
@@ -37,12 +52,14 @@ sequenceTitle 'sequence title'
   { return value; }
 
 
+blocks 'blocks'
+  = block*
+
+
 block 'block'
-  = title:blockTitle ws*
+  = title:blockTitle ws* properties:properties ws*
   {
-    return {
-      title: title
-    };
+    return conj(properties, {title: title});
   }
 
 
@@ -51,14 +68,45 @@ blockTitle 'block title'
   { return value; }
 
 
+properties 'properties'
+  = properties:property*
+  { return fromPairs(properties); }
+
+
+property 'property'
+  = symbolProperty
+
+
+symbolProperty 'symbol property'
+  = key:symbol '[symbol]'? ':' linews* value:symbol ws*
+  { return parseProperty(key, value); }
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)+
+  { return text(); }
+
+
+dash '-'
+  = '-'
+
+
+digit 'digit'
+  = [0-9]
+
+
+lcletter 'lower case letter'
+  = [a-z]
+
+
+text 'text'
+  = [^\t\n\r]+
+  { return text(); }
+
+
 ws 'whitespace'
   = [ \t\n\r]
 
 
 linews 'line whitespace'
   = [ \t\r]
-
-
-text 'text'
-  = [^\t\n\r]+
-  { return text(); }
