@@ -1,5 +1,5 @@
 {
-  var parse = require('./parsers');
+  var parse = require('./parse');
   var utils = require('./utils');
   var conj = utils.conj;
 }
@@ -64,23 +64,28 @@ properties 'properties'
 
 
 property 'property'
-  = property:(symbolProperty / nestedProperty)
-  { return parse.property(property); }
+  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
+  { return parse.property(key, type, value); }
 
 
-nestedProperty 'nested properties'
-  = key:symbol lineWs* '[properties]'? lineWs* ':' newline ws* value:properties
-  { return [key, value]; }
+type 'type annotation'
+  = '[' type:symbol ']'
+  { return type; }
 
 
-symbolProperty 'symbol property'
-  = key:symbol lineWs* '[symbol]'? lineWs* ':' lineWs* value:symbol
-  { return [key, value]; }
+value 'property value'
+  = (v:symbol { return parse.value('symbol', v); })
+  / (v:nestedProperties { return parse.value('properties', v); })
 
 
 symbol 'symbol'
   = lcletter (lcletter / digit / dash)+
   { return text(); }
+
+
+nestedProperties 'nested properties'
+  = newline ws* value:properties
+  { return value; }
 
 
 dash '-'
