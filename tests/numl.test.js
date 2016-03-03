@@ -251,4 +251,34 @@ describe("numl", function() {
       }]
     });
   });
+
+  it("should parse multiple-choice properties", function() {
+    numl(`
+      # _
+      ## _
+      ### _
+      question[multiple-choice]:\`
+        Hi {@msisdn}. What is your favourite colour?
+        1. Red
+        2. Blue
+        3. Green
+      \`
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          question: {
+            text: `Hi {@msisdn}. What is your favourite colour?`,
+            choices: [{
+              text: 'Red'
+            }, {
+              text: 'Blue'
+            }, {
+              text: 'Green'
+            }]
+          }
+        }]
+      }]
+    });
+  });
 });
