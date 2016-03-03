@@ -64,6 +64,21 @@ describe("numl", function() {
     });
   });
 
+  it("should allow dialogues to not have any sequences", function() {
+    numl(`
+      # dialogue
+    `)
+    .sequences.should.be.empty;
+  });
+
+  it("should allow sequences to not have any blocks", function() {
+    numl(`
+      # _
+      ## sequence
+    `)
+    .sequences[0].blocks.should.be.empty;
+  });
+
   it("should parse symbol properties", function() {
     numl(`
       # _

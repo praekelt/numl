@@ -11,11 +11,11 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* sequences:sequences
+  = title:dialogueTitle ws* sequences:sequences?
   {
     return {
       title: title,
-      sequences: sequences
+      sequences: sequences || []
     };
   }
 
@@ -36,30 +36,30 @@ blockTitle 'block title'
 
 
 sequences 'sequences'
-  = (s:sequence ws* { return s; })*
+  = (s:sequence ws* { return s; })+
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* properties:properties ws* blocks:blocks
+  = title:sequenceTitle ws* properties:properties? ws* blocks:blocks?
   {
-    return conj(properties, {
+    return conj(properties || {}, {
       title: title,
-      blocks: blocks
+      blocks: blocks || []
     });
   }
 
 
 blocks 'blocks'
-  = (b:block ws* { return b; })*
+  = (b:block ws* { return b; })+
 
 
 block 'block'
-  = title:blockTitle ws* properties:properties
-  { return conj(properties, {title: title}); }
+  = title:blockTitle ws* properties:properties?
+  { return conj(properties || {}, {title: title}); }
 
 
 properties 'properties'
-  = properties:(p:property ws* { return p; })*
+  = properties:(p:property ws* { return p; })+
   { return parse.properties(properties); }
 
 
@@ -69,12 +69,15 @@ property 'property'
 
 
 type 'type annotation'
-  = '[' type:symbol ']'
-  { return type; }
+  = '[' type:symbol ']' { return type; }
 
 
-value 'property value'
+value 'value'
   = (v:symbol { return parse.value('symbol', v); })
+
+
+propertyValue 'property value'
+  = value
 
 
 symbol 'symbol'
