@@ -88,6 +88,7 @@ nestedProperties 'nested properties'
   { return value; }
 
 
+// TODO indentation checking
 list 'list'
   = (newline ws* item:listItem { return item; })+
 
