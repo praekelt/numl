@@ -65,7 +65,7 @@ properties 'properties'
 
 property 'property'
   = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
-  { return parse.property(key, parse(type, value)); }
+  { return parse.property(key, type, value); }
 
 
 type 'type annotation'
@@ -74,8 +74,8 @@ type 'type annotation'
 
 
 value 'property value'
-  = symbol
-  / number
+  = (v:symbol { return parse.value('symbol', v); })
+  / (v:number { return parse.value('number', v); })
 
 
 symbol 'symbol'
