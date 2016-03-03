@@ -1,5 +1,5 @@
 {
-  var parse = require('./parsers');
+  var parse = require('./parse');
   var utils = require('./utils');
   var conj = utils.conj;
 }
@@ -64,18 +64,18 @@ properties 'properties'
 
 
 property 'property'
-  = property:(symbolProperty / numberProperty)
-  { return parse.property(property); }
+  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
+  { return parse.property(key, parse(type, value)); }
 
 
-symbolProperty 'symbol property'
-  = key:symbol lineWs* '[symbol]'? lineWs* ':' lineWs* value:symbol
-  { return [key, value]; }
+type 'type annotation'
+  = '[' type:symbol ']'
+  { return type; }
 
 
-numberProperty 'number property'
-  = key:symbol lineWs* '[number]'? lineWs* ':' lineWs* value:number
-  { return [key, value]; }
+value 'property value'
+  = symbol
+  / number
 
 
 symbol 'symbol'
