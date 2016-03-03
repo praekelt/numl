@@ -206,6 +206,17 @@ describe("numl", function() {
     })
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
+
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+        foo: bar baz: quux
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "b" found.`);
   });
 
   it("should throw an error for unrecognised types", function() {
