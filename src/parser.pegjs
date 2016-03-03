@@ -40,7 +40,7 @@ sequences 'sequences'
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* properties:properties ws* blocks:blocks
+  = title:sequenceTitle ws* properties:properties? ws* blocks:blocks
   {
     return conj(properties, {
       title: title,
@@ -54,17 +54,17 @@ blocks 'blocks'
 
 
 block 'block'
-  = title:blockTitle ws* properties:properties
+  = title:blockTitle ws* properties:properties?
   { return conj(properties, {title: title}); }
 
 
 properties 'properties'
-  = properties:(p:property ws* { return p; })*
+  = properties:(p:property ws* { return p; })+
   { return parse.properties(properties); }
 
 
 property 'property'
-  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
+  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:propertyValue
   { return parse.property(key, type, value); }
 
 
@@ -73,19 +73,23 @@ type 'type annotation'
   { return type; }
 
 
-value 'property value'
+value 'value'
   = (v:symbol { return parse.value('symbol', v); })
+
+
+propertyValue 'property value'
+  = value
   / (v:nestedProperties { return parse.value('properties', v); })
-
-
-symbol 'symbol'
-  = lcletter (lcletter / digit / dash)+
-  { return text(); }
 
 
 nestedProperties 'nested properties'
   = newline ws* value:properties
   { return value; }
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)+
+  { return text(); }
 
 
 dash '-'
