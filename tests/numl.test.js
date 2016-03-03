@@ -259,9 +259,10 @@ describe("numl", function() {
       ### _
       question[multiple-choice]:\`
         Hi {@msisdn}. What is your favourite colour?
-        1. Red
-        2. Blue
+        1. Red {@msisdn} {=red}
+        2. Blue {=blue}
         3. Green
+        23. Yellow
       \`
     `)
     .should.shallowDeepEqual({
@@ -270,11 +271,17 @@ describe("numl", function() {
           question: {
             text: `Hi {@msisdn}. What is your favourite colour?`,
             choices: [{
-              text: 'Red'
+              name: 'red',
+              text: 'Red {@msisdn}'
             }, {
+              name: 'blue',
               text: 'Blue'
             }, {
+              name: null,
               text: 'Green'
+            }, {
+              name: null,
+              text: 'Yellow'
             }]
           }
         }]

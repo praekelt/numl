@@ -14,12 +14,30 @@ choices 'choices'
 
 
 choice 'choice'
-  = digit+ '. ' text:text
+  = digit+ '. ' text:choiceText lineWs* name:choiceName? lineWs*
   {
     return {
-      text: text
+      text: text,
+      name: name || null
     };
   }
+
+choiceName 'choice name'
+  = '{=' name:symbol '}'
+  { return name; }
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)+
+  { return text(); }
+
+
+lcletter 'lower case letter'
+  = [a-z]
+
+
+dash '-'
+  = '-'
 
 
 digit 'digit'
@@ -30,14 +48,19 @@ newline 'newline'
   = [\n]
 
 
-ws 'whitespace'
-  = [ \t\n\r]
-
-
 lineWs 'line whitespace'
   = [ \t\r]
 
 
-text 'text'
-  = [^\t\n\r]+
+choiceText 'choice text'
+  = (char !'{=')+
   { return text(); }
+
+
+text 'text'
+  = char+
+  { return text(); }
+
+
+char
+  = [^\t\n\r]
