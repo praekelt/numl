@@ -144,7 +144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c27 = null,
 	        peg$c28 = ":",
 	        peg$c29 = { type: "literal", value: ":", description: "\":\"" },
-	        peg$c30 = function(key, type, value) { return parse.property(key, parse(type, value)); },
+	        peg$c30 = function(key, type, value) { return parse.property(key, type, value); },
 	        peg$c31 = { type: "other", description: "type annotation" },
 	        peg$c32 = "[",
 	        peg$c33 = { type: "literal", value: "[", description: "\"[\"" },
@@ -152,26 +152,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c35 = { type: "literal", value: "]", description: "\"]\"" },
 	        peg$c36 = function(type) { return type; },
 	        peg$c37 = { type: "other", description: "property value" },
-	        peg$c38 = { type: "other", description: "symbol" },
-	        peg$c39 = function() { return text(); },
-	        peg$c40 = { type: "other", description: "-" },
-	        peg$c41 = "-",
-	        peg$c42 = { type: "literal", value: "-", description: "\"-\"" },
-	        peg$c43 = { type: "other", description: "digit" },
-	        peg$c44 = /^[0-9]/,
-	        peg$c45 = { type: "class", value: "[0-9]", description: "[0-9]" },
-	        peg$c46 = { type: "other", description: "lower case letter" },
-	        peg$c47 = /^[a-z]/,
-	        peg$c48 = { type: "class", value: "[a-z]", description: "[a-z]" },
-	        peg$c49 = { type: "other", description: "text" },
-	        peg$c50 = /^[^\t\n\r]/,
-	        peg$c51 = { type: "class", value: "[^\\t\\n\\r]", description: "[^\\t\\n\\r]" },
-	        peg$c52 = { type: "other", description: "whitespace" },
-	        peg$c53 = /^[ \t\n\r]/,
-	        peg$c54 = { type: "class", value: "[ \\t\\n\\r]", description: "[ \\t\\n\\r]" },
-	        peg$c55 = { type: "other", description: "line whitespace" },
-	        peg$c56 = /^[ \t\r]/,
-	        peg$c57 = { type: "class", value: "[ \\t\\r]", description: "[ \\t\\r]" },
+	        peg$c38 = function(v) { return parse.value('symbol', v); },
+	        peg$c39 = { type: "other", description: "symbol" },
+	        peg$c40 = function() { return text(); },
+	        peg$c41 = { type: "other", description: "-" },
+	        peg$c42 = "-",
+	        peg$c43 = { type: "literal", value: "-", description: "\"-\"" },
+	        peg$c44 = { type: "other", description: "digit" },
+	        peg$c45 = /^[0-9]/,
+	        peg$c46 = { type: "class", value: "[0-9]", description: "[0-9]" },
+	        peg$c47 = { type: "other", description: "lower case letter" },
+	        peg$c48 = /^[a-z]/,
+	        peg$c49 = { type: "class", value: "[a-z]", description: "[a-z]" },
+	        peg$c50 = { type: "other", description: "text" },
+	        peg$c51 = /^[^\t\n\r]/,
+	        peg$c52 = { type: "class", value: "[^\\t\\n\\r]", description: "[^\\t\\n\\r]" },
+	        peg$c53 = { type: "other", description: "whitespace" },
+	        peg$c54 = /^[ \t\n\r]/,
+	        peg$c55 = { type: "class", value: "[ \\t\\n\\r]", description: "[ \\t\\n\\r]" },
+	        peg$c56 = { type: "other", description: "line whitespace" },
+	        peg$c57 = /^[ \t\r]/,
+	        peg$c58 = { type: "class", value: "[ \\t\\r]", description: "[ \\t\\r]" },
 
 	        peg$currPos          = 0,
 	        peg$reportedPos      = 0,
@@ -970,7 +971,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      s0 = peg$parsesymbol();
+	      s0 = peg$currPos;
+	      s1 = peg$parsesymbol();
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c38(s1);
+	      }
+	      s0 = s1;
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
@@ -1011,7 +1018,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        if (s2 !== peg$FAILED) {
 	          peg$reportedPos = s0;
-	          s1 = peg$c39();
+	          s1 = peg$c40();
 	          s0 = s1;
 	        } else {
 	          peg$currPos = s0;
@@ -1024,7 +1031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c38); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c39); }
 	      }
 
 	      return s0;
@@ -1035,16 +1042,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      peg$silentFails++;
 	      if (input.charCodeAt(peg$currPos) === 45) {
-	        s0 = peg$c41;
+	        s0 = peg$c42;
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c42); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c43); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c40); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c41); }
 	      }
 
 	      return s0;
@@ -1054,17 +1061,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c44.test(input.charAt(peg$currPos))) {
+	      if (peg$c45.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c45); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c46); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c44); }
 	      }
 
 	      return s0;
@@ -1074,17 +1081,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c47.test(input.charAt(peg$currPos))) {
+	      if (peg$c48.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c48); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c49); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c46); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c47); }
 	      }
 
 	      return s0;
@@ -1096,22 +1103,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      peg$silentFails++;
 	      s0 = peg$currPos;
 	      s1 = [];
-	      if (peg$c50.test(input.charAt(peg$currPos))) {
+	      if (peg$c51.test(input.charAt(peg$currPos))) {
 	        s2 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s2 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c51); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c52); }
 	      }
 	      if (s2 !== peg$FAILED) {
 	        while (s2 !== peg$FAILED) {
 	          s1.push(s2);
-	          if (peg$c50.test(input.charAt(peg$currPos))) {
+	          if (peg$c51.test(input.charAt(peg$currPos))) {
 	            s2 = input.charAt(peg$currPos);
 	            peg$currPos++;
 	          } else {
 	            s2 = peg$FAILED;
-	            if (peg$silentFails === 0) { peg$fail(peg$c51); }
+	            if (peg$silentFails === 0) { peg$fail(peg$c52); }
 	          }
 	        }
 	      } else {
@@ -1119,13 +1126,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      if (s1 !== peg$FAILED) {
 	        peg$reportedPos = s0;
-	        s1 = peg$c39();
+	        s1 = peg$c40();
 	      }
 	      s0 = s1;
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c49); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c50); }
 	      }
 
 	      return s0;
@@ -1135,17 +1142,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c53.test(input.charAt(peg$currPos))) {
+	      if (peg$c54.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c54); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c55); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c52); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c53); }
 	      }
 
 	      return s0;
@@ -1155,17 +1162,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s0, s1;
 
 	      peg$silentFails++;
-	      if (peg$c56.test(input.charAt(peg$currPos))) {
+	      if (peg$c57.test(input.charAt(peg$currPos))) {
 	        s0 = input.charAt(peg$currPos);
 	        peg$currPos++;
 	      } else {
 	        s0 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c57); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c58); }
 	      }
 	      peg$silentFails--;
 	      if (s0 === peg$FAILED) {
 	        s1 = peg$FAILED;
-	        if (peg$silentFails === 0) { peg$fail(peg$c55); }
+	        if (peg$silentFails === 0) { peg$fail(peg$c56); }
 	      }
 
 	      return s0;
@@ -1200,21 +1207,72 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(3);
-
-
-	function parse(name, value) {
-		return (parse[name] ||identity)(value);
-	}
-
-
-	parse.property = __webpack_require__(4);
-	parse.properties = __webpack_require__(8);
-	module.exports = parse;
+	exports.value = __webpack_require__(3);
+	exports.property = __webpack_require__(4);
+	exports.properties = __webpack_require__(45);
 
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	function parse(type, value) {
+		return {
+			type: type,
+			value: value
+		};
+	}
+
+
+	module.exports = parse;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var parseValue = __webpack_require__(5);
+	var toCamelCase = __webpack_require__(7);
+	var utils = __webpack_require__(10);
+	var conj = utils.conj;
+
+
+	function parse(key, type, value) {
+		value = conj(value, {type: type || value.type});
+		return [toCamelCase(key), parseValue(value)];
+	}
+
+
+	module.exports = parse;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var identity = __webpack_require__(6);
+
+
+	var types = {
+		symbol: identity
+	};
+
+
+	function parse(value) {
+		var fn = types[value.type];
+
+		if (!fn) throw new SyntaxError(
+			'SyntaxError: Unrecognised type "' + value.type + '".');
+
+		return fn(value.value);
+	}
+
+
+	module.exports = parse;
+
+
+/***/ },
+/* 6 */
 /***/ function(module, exports) {
 
 	/**
@@ -1240,26 +1298,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var toCamelCase = __webpack_require__(5);
-
-
-	function parse(key, value) {
-		return [toCamelCase(key), value];
-	}
-
-
-	module.exports = parse;
-
-
-/***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var space = __webpack_require__(6)
+	var space = __webpack_require__(8)
 
 	/**
 	 * Export.
@@ -1282,11 +1325,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var clean = __webpack_require__(7)
+	var clean = __webpack_require__(9)
 
 	/**
 	 * Export.
@@ -1309,7 +1352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	
@@ -1377,56 +1420,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return previous + ' ' + uppers.toLowerCase().split('').join(' ')
 	  })
 	}
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var fromPairs = __webpack_require__(9);
-
-
-	function parse(properties) {
-		return fromPairs(properties);
-	}
-
-
-	module.exports = parse;
-
-
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	/**
-	 * The inverse of `_.toPairs`; this method returns an object composed
-	 * from key-value `pairs`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Array
-	 * @param {Array} pairs The key-value pairs.
-	 * @returns {Object} Returns the new object.
-	 * @example
-	 *
-	 * _.fromPairs([['fred', 30], ['barney', 40]]);
-	 * // => { 'fred': 30, 'barney': 40 }
-	 */
-	function fromPairs(pairs) {
-	  var index = -1,
-	      length = pairs ? pairs.length : 0,
-	      result = {};
-
-	  while (++index < length) {
-	    var pair = pairs[index];
-	    result[pair[0]] = pair[1];
-	  }
-	  return result;
-	}
-
-	module.exports = fromPairs;
 
 
 /***/ },
@@ -2648,6 +2641,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = isString;
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var fromPairs = __webpack_require__(46);
+
+
+	function parse(properties) {
+		return fromPairs(properties);
+	}
+
+
+	module.exports = parse;
+
+
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	/**
+	 * The inverse of `_.toPairs`; this method returns an object composed
+	 * from key-value `pairs`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Array
+	 * @param {Array} pairs The key-value pairs.
+	 * @returns {Object} Returns the new object.
+	 * @example
+	 *
+	 * _.fromPairs([['fred', 30], ['barney', 40]]);
+	 * // => { 'fred': 30, 'barney': 40 }
+	 */
+	function fromPairs(pairs) {
+	  var index = -1,
+	      length = pairs ? pairs.length : 0,
+	      result = {};
+
+	  while (++index < length) {
+	    var pair = pairs[index];
+	    result[pair[0]] = pair[1];
+	  }
+	  return result;
+	}
+
+	module.exports = fromPairs;
 
 
 /***/ }

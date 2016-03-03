@@ -192,4 +192,17 @@ describe("numl", function() {
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
   });
+
+  it("should throw an error for unrecognised types", function() {
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+        foo[bad-type]: rar_23
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Unrecognised type "bad-type".`);
+  });
 });
