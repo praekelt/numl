@@ -258,11 +258,71 @@ describe("numl", function() {
       ## _
       ### _
       question[multiple-choice]:\`
+        Hi {@msisdn}. What is your favourite 色?
+        1. Red {@msisdn} {=red}
+        2. Blue
+        3. 緑 {=green}
+        4. Purple!@#$%^&*()-+ {=purple}
+        23. Yellow
+      \`
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          question: {
+            text: `Hi {@msisdn}. What is your favourite 色?`,
+            choices: [{
+              name: 'red',
+              text: 'Red {@msisdn}'
+            }, {
+              name: null,
+              text: 'Blue'
+            }, {
+              name: 'green',
+              text: '緑'
+            }, {
+              name: 'purple',
+              text: 'Purple!@#$%^&*()-+'
+            }, {
+              name: null,
+              text: 'Yellow'
+            }]
+          }
+        }]
+      }]
+    });
+
+    numl(`
+      # _
+      ## _
+      ### _
+      question[multiple-choice]:\`
         Hi {@msisdn}. What is your favourite colour?
         1. Red {@msisdn} {=red}
-        2. Blue {=blue}
-        3. Green
-        23. Yellow
+      \`
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          question: {
+            text: `Hi {@msisdn}. What is your favourite colour?`,
+            choices: [{
+              name: 'red',
+              text: 'Red {@msisdn}'
+            }]
+          }
+        }]
+      }]
+    });
+
+    numl(`
+      # _
+      ## _
+      ### _
+      question[multiple-choice]:\`
+        Hi {@msisdn}. What is your favourite colour?
+          1. Red {@msisdn} {=red}
+          2. Blue {=blue}
       \`
     `)
     .should.shallowDeepEqual({
@@ -276,16 +336,23 @@ describe("numl", function() {
             }, {
               name: 'blue',
               text: 'Blue'
-            }, {
-              name: null,
-              text: 'Green'
-            }, {
-              name: null,
-              text: 'Yellow'
             }]
           }
         }]
       }]
     });
+
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+        question[multiple-choice]:\`
+          Hi {@msisdn}. What is your favourite colour?
+          rar
+        \`
+      `);
+    })
+    .should.throw(`SyntaxError: Expected choices but "r" found.`);
   });
 });
