@@ -75,6 +75,7 @@ type 'type annotation'
 
 value 'value'
   = (v:symbol { return parse.value('symbol', v); })
+  / (v:list { return parse.value('list', v); })
 
 
 propertyValue 'property value'
@@ -85,6 +86,20 @@ propertyValue 'property value'
 nestedProperties 'nested properties'
   = newline ws* value:properties
   { return value; }
+
+
+list 'list'
+  = (newline ws* item:listItem { return item; })+
+
+
+listItem 'list item'
+  = dash lineWs* type:type? lineWs* value:listItemValue
+  { return parse.listItem(type, value); }
+
+
+listItemValue 'list item value'
+  = (v:properties { return parse.value('properties', v); })
+  / value
 
 
 symbol 'symbol'
