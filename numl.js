@@ -1609,6 +1609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c1 = [],
 	        peg$c2 = function(text, choices) {
 	            return {
+	              __type__: 'multiple-choice',
 	              text: text,
 	              choices: choices
 	            };
@@ -2540,8 +2541,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    isPrototype = __webpack_require__(35),
 	    keysIn = __webpack_require__(36);
 
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
 	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
-	var nonEnumShadows = !({ 'valueOf': 1 }).propertyIsEnumerable('valueOf');
+	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
 
 	/**
 	 * This method is like `_.assign` except that it iterates over own and

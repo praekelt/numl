@@ -2,6 +2,7 @@ start
   = text:text lineWs* newline choices:choices
   {
     return {
+      __type__: 'multiple-choice',
       text: text,
       choices: choices
     };

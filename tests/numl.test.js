@@ -270,6 +270,7 @@ describe("numl", function() {
       sequences: [{
         blocks: [{
           question: {
+            __type__: 'multiple-choice',
             text: `Hi {@msisdn}. What is your favourite 色?`,
             choices: [{
               name: 'red',
@@ -305,6 +306,7 @@ describe("numl", function() {
       sequences: [{
         blocks: [{
           question: {
+            __type__: 'multiple-choice',
             text: `Hi {@msisdn}. What is your favourite colour?`,
             choices: [{
               name: 'red',
@@ -329,6 +331,7 @@ describe("numl", function() {
       sequences: [{
         blocks: [{
           question: {
+            __type__: 'multiple-choice',
             text: `Hi {@msisdn}. What is your favourite colour?`,
             choices: [{
               name: 'red',
