@@ -4,7 +4,6 @@ var decamilize = require('decamelize');
 var template = require('./template.mst');
 
 
-
 function reverse(dialogue) {
 	return template(parseDialogue(dialogue));
 }
