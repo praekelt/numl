@@ -60,4 +60,31 @@ describe("numl.reverse", function() {
 		### bar
 		`);
 	});
+
+	it("should parse symbol properties", function() {
+		reverse({
+			title: '_',
+			foo: 'bar',
+			sequences: [{
+				title: '_',
+				baz: 'quux',
+				blocks: [{
+					title: '_',
+					corge: 'grault',
+					garplyWaldo: 'fred-xxyyxx-21'
+				}]
+			}]
+		})
+		.should.equal(str`
+		# _
+		foo: bar
+
+		## _
+		baz: quux
+
+		### _
+		corge: grault
+		garply-waldo: fred-xxyyxx-21
+		`);
+	});
 });

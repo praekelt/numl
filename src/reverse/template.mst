@@ -1,9 +1,18 @@
 # {{title}}
+{{#properties}}
+{{name}}: {{value}}
+{{/properties}}
 {{#sequences}}
 
 ## {{title}}
+{{#properties}}
+{{name}}: {{value}}
+{{/properties}}
 {{#blocks}}
 
 ### {{title}}
+{{#properties}}
+{{name}}: {{value}}
+{{/properties}}
 {{/blocks}}
 {{/sequences}}
