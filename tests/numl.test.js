@@ -235,18 +235,33 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          foo: 'bar baz',
-          baz: str`
-            quux
-              corge
-                grault
-          `,
-          garply: str`
-            waldo
-              fred
-         `,
-          rar: '23-!@$%^&*_ rar ポケモン',
-          lorem: ''
+          foo: {
+            __type__: 'text',
+            value: 'bar baz',
+          },
+          baz: {
+            __type__: 'text',
+            value: str`
+              quux
+                corge
+                  grault
+            `
+          },
+          garply: {
+            __type__: 'text',
+            value: str`
+              waldo
+                fred
+            `
+          },
+          rar: {
+            __type__: 'text',
+            value: '23-!@$%^&*_ rar ポケモン'
+          },
+          lorem: {
+            __type__: 'text',
+            value: ''
+          }
         }]
       }]
     });

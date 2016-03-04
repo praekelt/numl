@@ -1471,7 +1471,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	function parse(text) {
-		return dedent(text);
+		return {
+			__type__: 'text',
+			value: dedent(text)
+		};
 	}
 
 
@@ -1705,8 +1708,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    isPrototype = __webpack_require__(32),
 	    keysIn = __webpack_require__(33);
 
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
 	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
-	var nonEnumShadows = !({ 'valueOf': 1 }).propertyIsEnumerable('valueOf');
+	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
 
 	/**
 	 * This method is like `_.assign` except that it iterates over own and
