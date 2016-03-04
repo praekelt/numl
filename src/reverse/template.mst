@@ -1,2 +1,9 @@
+# {{title}}
+{{#sequences}}
 
+## {{title}}
+{{#blocks}}
 
+### {{title}}
+{{/blocks}}
+{{/sequences}}
