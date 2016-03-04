@@ -22,5 +22,9 @@
     "pegjs": "^0.8.0",
     "pegjs-loader": "^0.4.0",
     "webpack-stream": "^3.1.0"
+  },
+  "dependencies": {
+    "mu2": "^0.5.20",
+    "mustache-loader": "^0.3.1"
   }
 }
