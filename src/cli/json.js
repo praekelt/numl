@@ -1,9 +1,15 @@
+var open = require('fs').readFileSync;
 var log = require('./log');
+var numl = require('../../numl');
 
 
 function run(argv) {
-	log.err('TODO');
-	log.msg(argv.file);
+	try {
+		log.out(JSON.stringify(numl(open(argv.file).toString())));
+	}
+	catch(e) {
+		log.err(e);
+	}
 }
 
 
