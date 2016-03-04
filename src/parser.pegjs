@@ -11,12 +11,12 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* sequences:sequences?
+  = title:dialogueTitle ws* properties:properties? ws* sequences:sequences?
   {
-    return {
+    return conj(properties || {}, {
       title: title,
       sequences: sequences || []
-    };
+    });
   }
 
 

@@ -82,6 +82,8 @@ describe("numl", function() {
   it("should parse symbol properties", function() {
     numl(`
       # _
+      win: rar
+
       ## _
       foo:bar
       garply-waldo[symbol]:  fred
@@ -91,6 +93,7 @@ describe("numl", function() {
       corge: grault
     `)
     .should.shallowDeepEqual({
+      win: 'rar',
       sequences: [{
         foo: 'bar',
         garplyWaldo: 'fred',
