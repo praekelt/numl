@@ -10,8 +10,8 @@ module.exports = {
       test: /\.pegjs$/,
       loader: 'pegjs-loader'
     }, {
-			test: /\.mst$/,
-			loader: 'mustache'
-		}]
+      test: /\.mst$/,
+      loader: 'mustache'
+    }]
   }
 };
