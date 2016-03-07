@@ -1,18 +1,18 @@
 # {{title}}
 {{#properties}}
-{{name}}: {{value}}
+{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}
 {{/properties}}
 {{#sequences}}
 
 ## {{title}}
 {{#properties}}
-{{name}}: {{value}}
+{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}
 {{/properties}}
 {{#blocks}}
 
 ### {{title}}
 {{#properties}}
-{{name}}: {{value}}
+{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}
 {{/properties}}
 {{/blocks}}
 {{/sequences}}

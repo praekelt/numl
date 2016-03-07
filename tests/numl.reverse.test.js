@@ -87,4 +87,15 @@ describe("numl.reverse", function() {
     garply-waldo: fred-xxyyxx-21
     `);
   });
+
+  it("should throw an error for unrecognised value types", function() {
+    (function() {
+      reverse({
+        title: '_',
+        sequences: [],
+        foo: new Date(0)
+      });
+    })
+    .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
+  });
 });

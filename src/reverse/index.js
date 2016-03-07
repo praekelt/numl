@@ -2,6 +2,7 @@ var omit = require('lodash/omit');
 var map = require('lodash/map');
 var decamilize = require('decamelize');
 var template = require('./template.mst');
+var parseValue = require('./values');
 
 
 function reverse(dialogue) {
@@ -41,9 +42,12 @@ function parseProperties(d) {
 
 
 function parseProperty(value, name) {
+  value = parseValue(value);
+
   return {
     name: dashify(name),
-    value: value
+    value: value.value,
+    annotation: value.annotation
   };
 }
 

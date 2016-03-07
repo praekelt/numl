@@ -337,55 +337,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	var map = __webpack_require__(67);
 	var decamilize = __webpack_require__(121);
 	var template = __webpack_require__(123);
-
+	var parseValue = __webpack_require__(127);
 
 
 	function reverse(dialogue) {
-		return template(parseDialogue(dialogue));
+	  return template(parseDialogue(dialogue));
 	}
 
 
 	function parseDialogue(d) {
-		return {
-			title: d.title,
-			sequences: d.sequences.map(parseSequence),
-			properties: parseProperties(omit(d, 'title', 'sequences'))
-		};
+	  return {
+	    title: d.title,
+	    sequences: d.sequences.map(parseSequence),
+	    properties: parseProperties(omit(d, 'title', 'sequences'))
+	  };
 	}
 
 
 	function parseSequence(d) {
-		return {
-			title: d.title,
-			blocks: d.blocks.map(parseBlock),
-			properties: parseProperties(omit(d, 'title', 'blocks'))
-		};
+	  return {
+	    title: d.title,
+	    blocks: d.blocks.map(parseBlock),
+	    properties: parseProperties(omit(d, 'title', 'blocks'))
+	  };
 	}
 
 
 	function parseBlock(d) {
-		return {
-			title: d.title,
-			properties: parseProperties(omit(d, 'title'))
-		};
+	  return {
+	    title: d.title,
+	    properties: parseProperties(omit(d, 'title'))
+	  };
 	}
 
 
 	function parseProperties(d) {
-		return map(d, parseProperty);
+	  return map(d, parseProperty);
 	}
 
 
 	function parseProperty(value, name) {
-		return {
-			name: dashify(name),
-			value: value
-		};
+	  value = parseValue(value);
+
+	  return {
+	    name: dashify(name),
+	    value: value.value,
+	    annotation: value.annotation
+	  };
 	}
 
 
 	function dashify(s) {
-		return decamilize(s, '-');
+	  return decamilize(s, '-');
 	}
 
 
@@ -4469,7 +4472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(124);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,27,48,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("sequences",c,p,1),c,p,0,78,236,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,108,129,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,156,224,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,187,208,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{title}}\n{{#properties}}\n{{name}}: {{value}}\n{{/properties}}\n{{#sequences}}\n\n## {{title}}\n{{#properties}}\n{{name}}: {{value}}\n{{/properties}}\n{{#blocks}}\n\n### {{title}}\n{{#properties}}\n{{name}}: {{value}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,27,83,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,51,56,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("sequences",c,p,1),c,p,0,113,341,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,143,199,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,167,172,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,226,329,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,257,313,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,281,286,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(": ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{title}}\n{{#properties}}\n{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}\n{{/properties}}\n{{#sequences}}\n\n## {{title}}\n{{#properties}}\n{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}\n{{/properties}}\n{{#blocks}}\n\n### {{title}}\n{{#properties}}\n{{name}}{{#annotation}}{{.}}{{/annotation}}: {{value}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 124 */
@@ -5272,6 +5275,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 
 	})( true ? exports : Hogan);
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var types = [
+	  __webpack_require__(128),
+	  __webpack_require__(129)
+	];
+
+
+	function parse(value) {
+	  var type = findMatch(value);
+	  if (!type) throw new Error("No type found for value " + JSON.stringify(value));
+
+	  return {
+	    annotation: type.annotation,
+	    value: type.parse(value)
+	  };
+	}
+
+
+	function findMatch(value) {
+	  var i = -1;
+	  var n = types.length;
+	  var type;
+
+	  while (++i < n) {
+	    type = types[i];
+	    if (type.test(value)) return type;
+	  }
+
+	  return null;
+	}
+
+
+	module.exports = parse;
+
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.test = __webpack_require__(60);
+	exports.parse = __webpack_require__(112);
+	exports.annotation = null;
+
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.test = __webpack_require__(130);
+	exports.parse = __webpack_require__(112);
+	exports.annotation = null;
+
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObjectLike = __webpack_require__(16);
+
+	/** `Object#toString` result references. */
+	var numberTag = '[object Number]';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is classified as a `Number` primitive or object.
+	 *
+	 * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are classified
+	 * as numbers, use the `_.isFinite` method.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isNumber(3);
+	 * // => true
+	 *
+	 * _.isNumber(Number.MIN_VALUE);
+	 * // => true
+	 *
+	 * _.isNumber(Infinity);
+	 * // => true
+	 *
+	 * _.isNumber('3');
+	 * // => false
+	 */
+	function isNumber(value) {
+	  return typeof value == 'number' ||
+	    (isObjectLike(value) && objectToString.call(value) == numberTag);
+	}
+
+	module.exports = isNumber;
 
 
 /***/ }
