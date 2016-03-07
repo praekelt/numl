@@ -110,4 +110,34 @@ describe("numl.reverse", function() {
     foo: 23
     `);
   });
+
+  it("should parse text properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      foo: {
+        __type__: 'text',
+        value: dedent`
+          Bar
+          Baz
+          Quux
+        `
+      },
+      corge: {
+        __type__: 'text',
+        value: 'Grault Garply'
+      }
+    })
+    .should.equal(str`
+    # _
+    foo: \`
+      Bar
+      Baz
+      Quux
+    \`
+    corge: \`
+      Grault Garply
+    \`
+    `);
+  });
 });
