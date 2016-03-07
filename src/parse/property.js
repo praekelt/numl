@@ -5,8 +5,8 @@ var conj = utils.conj;
 
 
 function parse(key, type, value) {
-	value = conj(value, {type: type || value.type});
-	return [toCamelCase(key), parseValue(value)];
+  value = conj(value, {type: type || value.type});
+  return [toCamelCase(key), parseValue(value)];
 }
 
 
