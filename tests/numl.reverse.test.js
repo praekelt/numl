@@ -98,4 +98,16 @@ describe("numl.reverse", function() {
     })
     .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
   });
+
+  it("should parse number properties", function() {
+    reverse({
+      title: '_',
+      foo: 23,
+      sequences: []
+    })
+    .should.equal(str`
+    # _
+    foo: 23
+    `);
+  });
 });
