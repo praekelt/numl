@@ -94,10 +94,6 @@ lcletter 'lower case letter'
   = [a-z]
 
 
-dash '-'
-  = '-'
-
-
 text 'text'
   = [^`]*
   { return text(); }
