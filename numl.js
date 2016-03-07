@@ -109,11 +109,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c2 = function(dialogue) { return dialogue },
 	        peg$c3 = { type: "other", description: "dialogue" },
 	        peg$c4 = null,
-	        peg$c5 = function(title, sequences) {
-	            return {
+	        peg$c5 = function(title, properties, sequences) {
+	            return conj(properties || {}, {
 	              title: title,
 	              sequences: sequences || []
-	            };
+	            });
 	          },
 	        peg$c6 = { type: "other", description: "dialogue title" },
 	        peg$c7 = "#",
@@ -384,7 +384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function peg$parsedialogue() {
-	      var s0, s1, s2, s3;
+	      var s0, s1, s2, s3, s4, s5;
 
 	      peg$silentFails++;
 	      s0 = peg$currPos;
@@ -397,14 +397,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	          s3 = peg$parsews();
 	        }
 	        if (s2 !== peg$FAILED) {
-	          s3 = peg$parsesequences();
+	          s3 = peg$parseproperties();
 	          if (s3 === peg$FAILED) {
 	            s3 = peg$c4;
 	          }
 	          if (s3 !== peg$FAILED) {
-	            peg$reportedPos = s0;
-	            s1 = peg$c5(s1, s3);
-	            s0 = s1;
+	            s4 = [];
+	            s5 = peg$parsews();
+	            while (s5 !== peg$FAILED) {
+	              s4.push(s5);
+	              s5 = peg$parsews();
+	            }
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$parsesequences();
+	              if (s5 === peg$FAILED) {
+	                s5 = peg$c4;
+	              }
+	              if (s5 !== peg$FAILED) {
+	                peg$reportedPos = s0;
+	                s1 = peg$c5(s1, s3, s5);
+	                s0 = s1;
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c0;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c0;
+	            }
 	          } else {
 	            peg$currPos = s0;
 	            s0 = peg$c0;
