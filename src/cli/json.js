@@ -4,12 +4,12 @@ var numl = require('../../numl');
 
 
 function run(argv) {
-	try {
-		log.out(JSON.stringify(numl(open(argv.file).toString())));
-	}
-	catch(e) {
-		log.err(e);
-	}
+  try {
+    log.out(JSON.stringify(numl(open(argv.file).toString())));
+  }
+  catch(e) {
+    log.err(e);
+  }
 }
 
 
