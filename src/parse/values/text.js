@@ -2,10 +2,10 @@ var dedent = require('dedent');
 
 
 function parse(text) {
-	return {
-		__type__: 'text',
-		value: dedent(text)
-	};
+  return {
+    __type__: 'text',
+    value: dedent(text)
+  };
 }
 
 

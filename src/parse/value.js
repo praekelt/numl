@@ -1,8 +1,8 @@
 function parse(type, value) {
-	return {
-		type: type,
-		value: value
-	};
+  return {
+    type: type,
+    value: value
+  };
 }
 
 
