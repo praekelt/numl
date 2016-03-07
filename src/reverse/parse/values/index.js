@@ -1,7 +1,8 @@
 var types = [
   require('./symbol'),
   require('./number'),
-  require('./text')
+  require('./text'),
+  require('./list')
 ];
 
 
