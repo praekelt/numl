@@ -4,7 +4,7 @@ parser.SyntaxError = require('../../../errors').SyntaxError;
 
 
 function parse(text) {
-  return parser.parse(parseText(text));
+  return parser.parse(parseText(text).value);
 }
 
 

@@ -70,9 +70,26 @@ describe("numl", function() {
     });
   });
 
+  it("should allow dialogues to not have any sequences", function() {
+    numl(`
+      # dialogue
+    `)
+    .sequences.should.be.empty;
+  });
+
+  it("should allow sequences to not have any blocks", function() {
+    numl(`
+      # _
+      ## sequence
+    `)
+    .sequences[0].blocks.should.be.empty;
+  });
+
   it("should parse symbol properties", function() {
     numl(`
       # _
+      win: rar
+
       ## _
       foo:bar
       garply-waldo[symbol]:  fred
@@ -82,6 +99,7 @@ describe("numl", function() {
       corge: grault
     `)
     .should.shallowDeepEqual({
+      win: 'rar',
       sequences: [{
         foo: 'bar',
         garplyWaldo: 'fred',
@@ -197,6 +215,17 @@ describe("numl", function() {
     })
     .should.throw(
       `SyntaxError: Expected end of input or whitespace but "_" found.`);
+
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+        foo: bar baz: quux
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "b" found.`);
   });
 
   it("should throw an error for unrecognised types", function() {
@@ -235,18 +264,33 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          foo: 'bar baz',
-          baz: str`
-            quux
-              corge
-                grault
-          `,
-          garply: str`
-            waldo
-              fred
-         `,
-          rar: '23-!@$%^&*_ rar ポケモン',
-          lorem: ''
+          foo: {
+            __type__: 'text',
+            value: 'bar baz',
+          },
+          baz: {
+            __type__: 'text',
+            value: str`
+              quux
+                corge
+                  grault
+            `
+          },
+          garply: {
+            __type__: 'text',
+            value: str`
+              waldo
+                fred
+            `
+          },
+          rar: {
+            __type__: 'text',
+            value: '23-!@$%^&*_ rar ポケモン'
+          },
+          lorem: {
+            __type__: 'text',
+            value: ''
+          }
         }]
       }]
     });

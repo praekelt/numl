@@ -2,19 +2,19 @@ var identity = require('lodash/identity');
 
 
 var types = {
-	'symbol': identity,
-	'text': require('./text'),
-	'multiple-choice': require('./multiple-choice')
+  'symbol': identity,
+  'text': require('./text'),
+  'multiple-choice': require('./multiple-choice')
 };
 
 
 function parse(value) {
-	var fn = types[value.type];
+  var fn = types[value.type];
 
-	if (!fn) throw new SyntaxError(
-		'SyntaxError: Unrecognised type "' + value.type + '".');
+  if (!fn) throw new SyntaxError(
+    'SyntaxError: Unrecognised type "' + value.type + '".');
 
-	return fn(value.value);
+  return fn(value.value);
 }
 
 

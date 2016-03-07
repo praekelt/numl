@@ -5,6 +5,6 @@ global.log = log;
 
 
 function log(v) {
-	console.log.apply(console, arguments);
-	return v;
+  console.log.apply(console, arguments);
+  return v;
 }
