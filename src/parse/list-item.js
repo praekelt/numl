@@ -4,8 +4,8 @@ var conj = utils.conj;
 
 
 function parse(type, value) {
-	value = conj(value, {type: type || value.type});
-	return parseValue(value);
+  value = conj(value, {type: type || value.type});
+  return parseValue(value);
 }
 
 

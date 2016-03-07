@@ -11,12 +11,12 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* sequences:sequences
+  = title:dialogueTitle ws* properties:properties? ws* sequences:sequences?
   {
-    return {
+    return conj(properties || {}, {
       title: title,
-      sequences: sequences
-    };
+      sequences: sequences || []
+    });
   }
 
 
@@ -59,8 +59,8 @@ block 'block'
 
 
 properties 'properties'
-  = properties:(p:property ws* { return p; })+
-  { return parse.properties(properties); }
+  = first:property rest:(newline ws* p:property { return p; })*
+  { return parse.properties([first].concat(rest)); }
 
 
 property 'property'
