@@ -1,0 +1,2 @@
+{{name}}{{#annotation}}{{.}}{{/annotation}}:{{^newline}} {{value}}{{/newline}}{{#newline}}
+{{value}}{{/newline}}

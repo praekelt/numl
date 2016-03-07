@@ -149,7 +149,10 @@ describe("numl.reverse", function() {
         'bar-baz',
         {
           __type__: 'text',
-          value: 'Quux Corge'
+          value: dedent`
+            Quux
+            Corge
+          `
         },
         23
       ]

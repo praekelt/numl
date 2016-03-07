@@ -1,3 +1,6 @@
+module.exports = parse;
+
+
 var types = [
   require('./symbol'),
   require('./number'),
@@ -6,13 +9,14 @@ var types = [
 ];
 
 
-function parse(value) {
+function parse(value, depth) {
   var type = findMatch(value);
   if (!type) throw new Error("No type found for value " + JSON.stringify(value));
 
   return {
-    annotation: type.annotation,
-    value: type.parse(value)
+    newline: type.newline,
+    value: type.parse(value, depth),
+    annotation: type.annotation
   };
 }
 
@@ -29,6 +33,3 @@ function findMatch(value) {
 
   return null;
 }
-
-
-module.exports = parse;

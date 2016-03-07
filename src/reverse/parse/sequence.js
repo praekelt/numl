@@ -1,14 +1,13 @@
-var map = require('lodash/map');
 var omit = require('lodash/omit');
 var parseBlock = require('./block');
-var parseProperty = require('./property');
+var parseProperties = require('./properties');
 
 
 function parse(d) {
   return {
     title: d.title,
     blocks: d.blocks.map(parseBlock),
-    properties: map(omit(d, 'title', 'blocks'), parseProperty)
+    properties: parseProperties(omit(d, 'title', 'blocks'), 0)
   };
 }
 
