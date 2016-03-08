@@ -1,18 +1,18 @@
 # {{title}}
 {{#properties}}
-{{.}}
+{{properties}}
 {{/properties}}
 {{#sequences}}
 
 ## {{title}}
 {{#properties}}
-{{.}}
+{{properties}}
 {{/properties}}
 {{#blocks}}
 
 ### {{title}}
 {{#properties}}
-{{.}}
+{{properties}}
 {{/properties}}
 {{/blocks}}
 {{/sequences}}

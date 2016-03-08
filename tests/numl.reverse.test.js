@@ -168,4 +168,52 @@ describe("numl.reverse", function() {
       - 23
     `);
   });
+
+  it("should parse nested properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      foo: {
+        bar: [{
+          baz: 'quux',
+        }, {
+          corge: 'grault',
+          garply: {
+            waldo: 'fred',
+            xxyyxx: [
+              'lazer',
+              'blazer',
+              23
+            ],
+            rar: {
+              __type__: 'text',
+              value: dedent`
+                Unique
+                New
+                York
+                `
+            }
+          }
+        }]
+      }
+    })
+    .should.equal(str`
+    # _
+    foo:
+      bar:
+        - baz: quux
+        - corge: grault
+          garply:
+            waldo: fred
+            xxyyxx:
+              - lazer
+              - blazer
+              - 23
+            rar: \`
+              Unique
+              New
+              York
+            \`
+    `);
+  });
 });

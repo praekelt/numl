@@ -1,22 +1,18 @@
+module.exports = parse;
+
 var parseValue = require('../values');
 var template = require('./template.mst');
-var indent = require('../../../utils').indent;
 var dashify = require('../../../utils').dashify;
 
 
-function parse(value, name, depth) {
-  value = parseValue(value, depth);
+function parse(value, name) {
+  value = parseValue(value);
 
-  var res = template({
+  return template({
       name: dashify(name),
       value: value.value,
-      newline: value.newline,
+      inline: value.inline,
       annotation: value.annotation
     })
     .trim();
-
-  return indent(res, depth);
 }
-
-
-module.exports = parse;

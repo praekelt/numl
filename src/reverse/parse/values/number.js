@@ -1,4 +1,4 @@
-exports.newline = false;
+exports.inline = true;
 exports.annotation = null;
 exports.test = require('lodash/isNumber');
-exports.parse = require('lodash/identity');
+exports.parse = require('lodash/toString');

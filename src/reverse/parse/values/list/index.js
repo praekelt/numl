@@ -1,17 +1,18 @@
+exports.parse = parse;
+exports.inline = false;
+exports.annotation = null;
+exports.test = require('lodash/isArray');
+
 var template = require('./template.mst');
 var parseValue = require('../');
+var conj = require('../../../../utils').conj;
 
 
-function parse(v, depth) {
+function parse(values) {
   return template({
-    values: v.map(function(values) {
-      return parseValue(values, depth + 1);
+    values: values.map(function(v) {
+      var value = parseValue(v);
+      return conj(value, {value: value.value.trim()});
     })
   });
 }
-
-
-exports.parse = parse;
-exports.newline = true;
-exports.annotation = null;
-exports.test = require('lodash/isArray');

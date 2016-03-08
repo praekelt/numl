@@ -1,18 +1,18 @@
 exports.test = test;
 exports.parse = parse;
-exports.inline = true;
+exports.inline = false;
 exports.annotation = null;
 
-var indent = require('../../../utils').indent;
 var isPlainObject = require('lodash/isPlainObject');
+var parseProperties = require('../properties');
 
 
 function test(v) {
   return isPlainObject(v)
-      && v.__type__ === 'text';
+      && !('__type__' in v);
 }
 
 
-function parse(v) {
-  return ['`', indent(v.value, 1), '`'].join('\n');
+function parse(d) {
+  return parseProperties(d);
 }

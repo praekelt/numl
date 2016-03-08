@@ -1,23 +1,35 @@
 module.exports = parse;
 
+var indentNewlines = require('../../../utils').indentNewlines;
+
 
 var types = [
   require('./symbol'),
   require('./number'),
   require('./text'),
-  require('./list')
+  require('./list'),
+  require('./properties')
 ];
 
 
-function parse(value, depth) {
+function parse(value) {
   var type = findMatch(value);
   if (!type) throw new Error("No type found for value " + JSON.stringify(value));
 
   return {
-    newline: type.newline,
-    value: type.parse(value, depth),
+    inline: type.inline,
+    value: parseValue(value, type),
     annotation: type.annotation
   };
+}
+
+
+function parseValue(value, type) {
+  value = type.parse(value);
+
+  return !type.inline
+    ? indentNewlines('\n' + value, 1)
+    : value;
 }
 
 
