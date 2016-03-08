@@ -8,7 +8,8 @@ var types = [
   require('./number'),
   require('./text'),
   require('./list'),
-  require('./properties')
+  require('./properties'),
+  require('./multiple-choice')
 ];
 
 

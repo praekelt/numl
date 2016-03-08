@@ -4,12 +4,11 @@ exports.inline = true;
 exports.annotation = null;
 
 var indent = require('../../../utils').indent;
-var isPlainObject = require('lodash/isPlainObject');
+var isType = require('../isType');
 
 
 function test(v) {
-  return isPlainObject(v)
-      && v.__type__ === 'text';
+  return isType(v, 'text');
 }
 
 
