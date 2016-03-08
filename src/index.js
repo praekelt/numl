@@ -7,4 +7,5 @@ function numl(input) {
 
 
 numl.SyntaxError = parser.SyntaxError;
+numl.reverse = require('./reverse');
 module.exports = numl;
