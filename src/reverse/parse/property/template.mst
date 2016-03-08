@@ -1,1 +1,1 @@
-{{{name}}}{{#annotation}}{{.}}{{/annotation}}:{{#inline}} {{/inline}}{{{value}}}
+{{{name}}}{{#annotation}}[{{{annotation}}}]{{/annotation}}:{{#inline}} {{/inline}}{{{value}}}

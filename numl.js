@@ -5101,7 +5101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(4);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("values",c,p,1),c,p,0,11,61,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("-");if(t.s(t.f("annotation",c,p,1),c,p,0,28,33,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(" ");t.b(t.t(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "{{#values}}\n-{{#annotation}}{{.}}{{/annotation}} {{{value}}}\n{{/values}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("values",c,p,1),c,p,0,11,74,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("-");if(t.s(t.f("annotation",c,p,1),c,p,0,28,46,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("[");t.b(t.t(t.f("annotation",c,p,0)));t.b("]");});c.pop();}t.b(" ");t.b(t.t(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "{{#values}}\n-{{#annotation}}[{{{annotation}}}]{{/annotation}} {{{value}}}\n{{/values}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 102 */
@@ -5132,7 +5132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(4);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b(t.t(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,25,30,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(":");if(t.s(t.f("inline",c,p,1),c,p,0,57,58,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" ");});c.pop();}t.b(t.t(t.f("value",c,p,0)));t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "{{{name}}}{{#annotation}}{{.}}{{/annotation}}:{{#inline}} {{/inline}}{{{value}}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b(t.t(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,25,43,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("[");t.b(t.t(t.f("annotation",c,p,0)));t.b("]");});c.pop();}t.b(":");if(t.s(t.f("inline",c,p,1),c,p,0,70,71,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" ");});c.pop();}t.b(t.t(t.f("value",c,p,0)));t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "{{{name}}}{{#annotation}}[{{{annotation}}}]{{/annotation}}:{{#inline}} {{/inline}}{{{value}}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 104 */
