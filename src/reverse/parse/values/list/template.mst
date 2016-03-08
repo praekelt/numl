@@ -1,3 +1,3 @@
 {{#values}}
--{{#annotation}}{{.}}{{/annotation}} {{value}}
+-{{#annotation}}{{.}}{{/annotation}} {{{value}}}
 {{/values}}

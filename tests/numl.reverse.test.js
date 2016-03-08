@@ -121,6 +121,7 @@ describe("numl.reverse", function() {
           Bar
           Baz
           Quux
+          !@#$%^&*緑
         `
       },
       corge: {
@@ -134,6 +135,7 @@ describe("numl.reverse", function() {
       Bar
       Baz
       Quux
+      !@#$%^&*緑
     \`
     corge: \`
       Grault Garply
@@ -152,6 +154,7 @@ describe("numl.reverse", function() {
           value: dedent`
             Quux
             Corge
+            !@#$%^&*緑
           `
         },
         23
@@ -164,6 +167,7 @@ describe("numl.reverse", function() {
       - \`
         Quux
         Corge
+        !@#$%^&*緑
       \`
       - 23
     `);
@@ -191,6 +195,7 @@ describe("numl.reverse", function() {
                 Unique
                 New
                 York
+                !@#$%^&*緑
                 `
             }
           }
@@ -213,6 +218,7 @@ describe("numl.reverse", function() {
               Unique
               New
               York
+              !@#$%^&*緑
             \`
     `);
   });

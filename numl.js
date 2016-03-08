@@ -350,7 +350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(4);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,27,43,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("sequences",c,p,1),c,p,0,73,221,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,103,119,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,146,209,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.v(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,177,193,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{title}}\n{{#properties}}\n{{properties}}\n{{/properties}}\n{{#sequences}}\n\n## {{title}}\n{{#properties}}\n{{properties}}\n{{/properties}}\n{{#blocks}}\n\n### {{title}}\n{{#properties}}\n{{properties}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,29,47,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("sequences",c,p,1),c,p,0,77,233,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,109,127,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,154,221,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,187,205,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{#sequences}}\n\n## {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{#blocks}}\n\n### {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 4 */
@@ -5101,7 +5101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(4);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("values",c,p,1),c,p,0,11,59,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("-");if(t.s(t.f("annotation",c,p,1),c,p,0,28,33,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(" ");t.b(t.v(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "{{#values}}\n-{{#annotation}}{{.}}{{/annotation}} {{value}}\n{{/values}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");if(t.s(t.f("values",c,p,1),c,p,0,11,61,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("-");if(t.s(t.f("annotation",c,p,1),c,p,0,28,33,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(" ");t.b(t.t(t.f("value",c,p,0)));t.b("\n" + i);});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "{{#values}}\n-{{#annotation}}{{.}}{{/annotation}} {{{value}}}\n{{/values}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 102 */
@@ -5132,7 +5132,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(4);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b(t.v(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,23,28,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(":");if(t.s(t.f("inline",c,p,1),c,p,0,55,56,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" ");});c.pop();}t.b(t.v(t.f("value",c,p,0)));t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "{{name}}{{#annotation}}{{.}}{{/annotation}}:{{#inline}} {{/inline}}{{value}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b(t.v(t.f("name",c,p,0)));if(t.s(t.f("annotation",c,p,1),c,p,0,23,28,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.v(t.d(".",c,p,0)));});c.pop();}t.b(":");if(t.s(t.f("inline",c,p,1),c,p,0,55,56,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(" ");});c.pop();}t.b(t.t(t.f("value",c,p,0)));t.b("\n");return t.fl(); },partials: {}, subs: {  }}, "{{name}}{{#annotation}}{{.}}{{/annotation}}:{{#inline}} {{/inline}}{{{value}}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 104 */
