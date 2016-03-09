@@ -85,7 +85,7 @@ describe("numl", function() {
       win: rar
 
       ## _
-      foo:bar
+      foo:bar 
       garply-waldo[symbol]:  fred
       baz-quux-23 [symbol] : corge-21-grault
 

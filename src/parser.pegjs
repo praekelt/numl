@@ -59,7 +59,7 @@ block 'block'
 
 
 properties 'properties'
-  = first:property rest:(newline ws* p:property { return p; })*
+  = first:property rest:(lineWs* newline ws* p:property { return p; })*
   { return parse.properties([first].concat(rest)); }
 
 

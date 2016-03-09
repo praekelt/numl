@@ -817,7 +817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function peg$parseproperties() {
-	      var s0, s1, s2, s3, s4, s5, s6;
+	      var s0, s1, s2, s3, s4, s5, s6, s7;
 
 	      peg$silentFails++;
 	      s0 = peg$currPos;
@@ -825,20 +825,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (s1 !== peg$FAILED) {
 	        s2 = [];
 	        s3 = peg$currPos;
-	        s4 = peg$parsenewline();
+	        s4 = [];
+	        s5 = peg$parselineWs();
+	        while (s5 !== peg$FAILED) {
+	          s4.push(s5);
+	          s5 = peg$parselineWs();
+	        }
 	        if (s4 !== peg$FAILED) {
-	          s5 = [];
-	          s6 = peg$parsews();
-	          while (s6 !== peg$FAILED) {
-	            s5.push(s6);
-	            s6 = peg$parsews();
-	          }
+	          s5 = peg$parsenewline();
 	          if (s5 !== peg$FAILED) {
-	            s6 = peg$parseproperty();
+	            s6 = [];
+	            s7 = peg$parsews();
+	            while (s7 !== peg$FAILED) {
+	              s6.push(s7);
+	              s7 = peg$parsews();
+	            }
 	            if (s6 !== peg$FAILED) {
-	              peg$reportedPos = s3;
-	              s4 = peg$c25(s6);
-	              s3 = s4;
+	              s7 = peg$parseproperty();
+	              if (s7 !== peg$FAILED) {
+	                peg$reportedPos = s3;
+	                s4 = peg$c25(s7);
+	                s3 = s4;
+	              } else {
+	                peg$currPos = s3;
+	                s3 = peg$c0;
+	              }
 	            } else {
 	              peg$currPos = s3;
 	              s3 = peg$c0;
@@ -854,20 +865,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	        while (s3 !== peg$FAILED) {
 	          s2.push(s3);
 	          s3 = peg$currPos;
-	          s4 = peg$parsenewline();
+	          s4 = [];
+	          s5 = peg$parselineWs();
+	          while (s5 !== peg$FAILED) {
+	            s4.push(s5);
+	            s5 = peg$parselineWs();
+	          }
 	          if (s4 !== peg$FAILED) {
-	            s5 = [];
-	            s6 = peg$parsews();
-	            while (s6 !== peg$FAILED) {
-	              s5.push(s6);
-	              s6 = peg$parsews();
-	            }
+	            s5 = peg$parsenewline();
 	            if (s5 !== peg$FAILED) {
-	              s6 = peg$parseproperty();
+	              s6 = [];
+	              s7 = peg$parsews();
+	              while (s7 !== peg$FAILED) {
+	                s6.push(s7);
+	                s7 = peg$parsews();
+	              }
 	              if (s6 !== peg$FAILED) {
-	                peg$reportedPos = s3;
-	                s4 = peg$c25(s6);
-	                s3 = s4;
+	                s7 = peg$parseproperty();
+	                if (s7 !== peg$FAILED) {
+	                  peg$reportedPos = s3;
+	                  s4 = peg$c25(s7);
+	                  s3 = s4;
+	                } else {
+	                  peg$currPos = s3;
+	                  s3 = peg$c0;
+	                }
 	              } else {
 	                peg$currPos = s3;
 	                s3 = peg$c0;
@@ -1316,10 +1338,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	function parse(type, value) {
-		return {
-			type: type,
-			value: value
-		};
+	  return {
+	    type: type,
+	    value: value
+	  };
 	}
 
 
@@ -1337,8 +1359,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	function parse(key, type, value) {
-		value = conj(value, {type: type || value.type});
-		return [toCamelCase(key), parseValue(value)];
+	  value = conj(value, {type: type || value.type});
+	  return [toCamelCase(key), parseValue(value)];
 	}
 
 
@@ -1353,17 +1375,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var types = {
-		symbol: identity
+	  symbol: identity
 	};
 
 
 	function parse(value) {
-		var fn = types[value.type];
+	  var fn = types[value.type];
 
-		if (!fn) throw new SyntaxError(
-			'SyntaxError: Unrecognised type "' + value.type + '".');
+	  if (!fn) throw new SyntaxError(
+	    'SyntaxError: Unrecognised type "' + value.type + '".');
 
-		return fn(value.value);
+	  return fn(value.value);
 	}
 
 
@@ -1529,7 +1551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	function conj(a, b) {
-		return extend({}, a, b);
+	  return extend({}, a, b);
 	}
 
 
@@ -1554,8 +1576,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    isPrototype = __webpack_require__(30),
 	    keysIn = __webpack_require__(31);
 
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
 	/** Detect if properties shadowing those on `Object.prototype` are non-enumerable. */
-	var nonEnumShadows = !({ 'valueOf': 1 }).propertyIsEnumerable('valueOf');
+	var nonEnumShadows = !propertyIsEnumerable.call({ 'valueOf': 1 }, 'valueOf');
 
 	/**
 	 * This method is like `_.assign` except that it iterates over own and
@@ -2750,7 +2778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	function parse(properties) {
-		return fromPairs(properties);
+	  return fromPairs(properties);
 	}
 
 
