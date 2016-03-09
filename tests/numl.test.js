@@ -1,4 +1,10 @@
 var numl = require('../numl');
+var dedent = require('dedent');
+
+
+function str(s) {
+  return dedent(s).trim();
+}
 
 
 describe("numl", function() {
@@ -401,6 +407,65 @@ describe("numl", function() {
             garply: +23,
             waldo: -23.23e-23,
             fred: -23.23
+          }
+        }]
+      }]
+    });
+  });
+
+  it("should parse text properties", function() {
+    numl(`
+      # _
+
+      ## _
+
+      ### _
+      foo: \`bar baz\`
+      baz: \`
+        quux
+          corge
+            grault
+      \`
+      garply[text]: \`
+        waldo
+          fred
+      \`
+      rar [text]: \`
+        23-!@$%^&*_ rar ポケモン
+      \`
+      lorem: \`\`
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          properties: {
+            foo: {
+              __type__: 'text',
+              value: 'bar baz',
+            },
+            baz: {
+              __type__: 'text',
+              value: str`
+                quux
+                  corge
+                    grault
+              `
+            },
+            garply: {
+              __type__: 'text',
+              value: str`
+                waldo
+                  fred
+              `
+            },
+            rar: {
+              __type__: 'text',
+              value: '23-!@$%^&*_ rar ポケモン'
+            },
+            lorem: {
+              __type__: 'text',
+              value: ''
+            }
           }
         }]
       }]

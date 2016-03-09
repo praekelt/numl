@@ -3,7 +3,8 @@ var identity = require('lodash/identity');
 
 var types = {
   symbol: identity,
-  number: identity
+  number: identity,
+  text: require('./text')
 };
 
 

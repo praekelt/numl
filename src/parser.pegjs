@@ -24,17 +24,17 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' lineWs* value:text
+  = '#' lineWs* value:lineText
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' lineWs* value:text
+  = '##' lineWs* value:lineText
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' lineWs* value:text
+  = '###' lineWs* value:lineText
   { return value; }
 
 
@@ -88,16 +88,13 @@ type 'type annotation'
 
 value 'value'
   = (v:symbol { return parse.value('symbol', v); })
+  / (v:textValue { return parse.value('text', v); })
   / (v:number { return parse.value('number', v); })
 
 
-symbol 'symbol'
-  = lcletter (lcletter / digit / dash)*
-  { return text(); }
-
-
-dash '-'
-  = '-'
+textValue 'text value'
+  = '`' newline* value:text newline* '`'
+  { return value; }
 
 number 'number'
   = sign? int frac? exp?
@@ -127,15 +124,29 @@ lcletter 'lower case letter'
 
 
 text 'text'
+  = [^`]*
+  { return text(); }
+
+
+lineText 'line text'
   = [^\t\n\r]+
   { return text(); }
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)*
+  { return text(); }
+
+
+dash '-'
+  = '-'
 
 
 blankLine 'blank line'
   = newline lineWs* newline
 
 
-newline 'newline'
+newline 'new line'
   = [\n]
 
 
