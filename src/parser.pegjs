@@ -89,15 +89,34 @@ type 'type annotation'
 value 'value'
   = (v:symbol { return parse.value('symbol', v); })
   / (v:textValue { return parse.value('text', v); })
+  / (v:number { return parse.value('number', v); })
 
 
 textValue 'text value'
   = '`' newline* value:text newline* '`'
   { return value; }
 
+number 'number'
+  = sign? int frac? exp?
+  { return parseFloat(text()) }
+
+
+int 'integer'
+  = digit+
+  { return parseInt(text()) }
+
 
 digit 'digit'
   = [0-9]
+
+
+point = '.'
+sign = minus / plus
+e = [eE]
+exp = e (minus / plus)? digit+
+frac = point digit+
+minus = '-'
+plus = '+'
 
 
 lcletter 'lower case letter'
