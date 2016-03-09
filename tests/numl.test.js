@@ -70,6 +70,117 @@ describe("numl", function() {
     });
   });
 
+  it("should require newlines beween sections", function() {
+    (function() {
+      log(numl(`
+        # a
+        b: c
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
+        ## m
+        n: o
+      `));
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
+        ## m
+        n: o
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
+
+        ## m
+        n: o
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+
+        ### g
+        h: i
+        ### j
+        k: l
+
+        ## m
+        n: o
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+
+        ### g
+        h: i
+
+        ### j
+        k: l
+
+        ## m
+        n: o
+      `);
+    })
+    .should.not.throw(Error);
+
+    (function() {
+      numl(`
+        # a
+
+        ## d
+
+        ### g
+
+        ### j
+
+        ## m
+      `);
+    })
+    .should.not.throw(Error);
+  });
+
   it("should allow dialogues to not have any sequences", function() {
     numl(`
       # dialogue
@@ -80,6 +191,7 @@ describe("numl", function() {
   it("should allow sequences to not have any blocks", function() {
     numl(`
       # _
+
       ## sequence
     `)
     .sequences[0].blocks.should.be.empty;
@@ -91,7 +203,7 @@ describe("numl", function() {
       win: rar
 
       ## _
-      foo:bar
+      foo:bar 
       garply-waldo[symbol]:  fred
       baz-quux-23 [symbol] : corge-21-grault
 
@@ -99,18 +211,24 @@ describe("numl", function() {
       corge: grault
     `)
     .should.shallowDeepEqual({
-      win: 'rar',
+      properties: {win: 'rar'},
       sequences: [{
-        foo: 'bar',
-        garplyWaldo: 'fred',
-        bazQuux23: 'corge-21-grault',
-        blocks: [{corge: 'grault'}]
+        properties: {
+          foo: 'bar',
+          garplyWaldo: 'fred',
+          bazQuux23: 'corge-21-grault',
+        },
+        blocks: [{
+          properties: {corge: 'grault'}
+        }]
       }]
     });
 
     numl(`
       # _
+
       ## _
+
       ### _
       foo:bar
       garply-waldo[symbol]:  fred
@@ -121,9 +239,11 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          foo: 'bar',
-          garplyWaldo: 'fred',
-          bazQuux23: 'corge-21-grault'
+          properties: {
+            foo: 'bar',
+            garplyWaldo: 'fred',
+            bazQuux23: 'corge-21-grault'
+          }
         }]
       }]
     });
@@ -131,7 +251,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         23rar: bar
       `);
@@ -142,7 +264,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: 23rar
       `);
@@ -153,7 +277,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         rar 23: bar
       `);
@@ -164,7 +290,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: rar 23
       `);
@@ -175,7 +303,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         ポケモン: foo
       `);
@@ -186,7 +316,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: ポケモン
       `);
@@ -197,7 +329,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         rar_23: bar
       `);
@@ -208,7 +342,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: rar_23
       `);
@@ -219,7 +355,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: bar baz: quux
       `);
@@ -232,7 +370,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo[bad-type]: rar_23
       `);
@@ -244,7 +384,9 @@ describe("numl", function() {
   it("should parse text properties", function() {
     numl(`
       # _
+
       ## _
+
       ### _
       foo: \`bar baz\`
       baz: \`
@@ -264,32 +406,34 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          foo: {
-            __type__: 'text',
-            value: 'bar baz',
-          },
-          baz: {
-            __type__: 'text',
-            value: str`
-              quux
-                corge
-                  grault
-            `
-          },
-          garply: {
-            __type__: 'text',
-            value: str`
-              waldo
-                fred
-            `
-          },
-          rar: {
-            __type__: 'text',
-            value: '23-!@$%^&*_ rar ポケモン'
-          },
-          lorem: {
-            __type__: 'text',
-            value: ''
+          properties: {
+            foo: {
+              __type__: 'text',
+              value: 'bar baz',
+            },
+            baz: {
+              __type__: 'text',
+              value: str`
+                quux
+                  corge
+                    grault
+              `
+            },
+            garply: {
+              __type__: 'text',
+              value: str`
+                waldo
+                  fred
+              `
+            },
+            rar: {
+              __type__: 'text',
+              value: '23-!@$%^&*_ rar ポケモン'
+            },
+            lorem: {
+              __type__: 'text',
+              value: ''
+            }
           }
         }]
       }]
@@ -299,7 +443,9 @@ describe("numl", function() {
   it("should parse multiple-choice properties", function() {
     numl(`
       # _
+
       ## _
+
       ### _
       question[multiple-choice]:\`
         Hi {@msisdn}. What is your favourite 色?
@@ -313,25 +459,27 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          question: {
-            __type__: 'multiple-choice',
-            text: `Hi {@msisdn}. What is your favourite 色?`,
-            choices: [{
-              name: 'red',
-              text: 'Red {@msisdn}'
-            }, {
-              name: null,
-              text: 'Blue'
-            }, {
-              name: 'green',
-              text: '緑'
-            }, {
-              name: 'purple',
-              text: 'Purple!@#$%^&*()-+'
-            }, {
-              name: null,
-              text: 'Yellow'
-            }]
+          properties: {
+            question: {
+              __type__: 'multiple-choice',
+              text: `Hi {@msisdn}. What is your favourite 色?`,
+              choices: [{
+                name: 'red',
+                text: 'Red {@msisdn}'
+              }, {
+                name: null,
+                text: 'Blue'
+              }, {
+                name: 'green',
+                text: '緑'
+              }, {
+                name: 'purple',
+                text: 'Purple!@#$%^&*()-+'
+              }, {
+                name: null,
+                text: 'Yellow'
+              }]
+            }
           }
         }]
       }]
@@ -339,7 +487,9 @@ describe("numl", function() {
 
     numl(`
       # _
+
       ## _
+
       ### _
       question[multiple-choice]:\`
         Hi {@msisdn}. What is your favourite colour?
@@ -349,13 +499,15 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          question: {
-            __type__: 'multiple-choice',
-            text: `Hi {@msisdn}. What is your favourite colour?`,
-            choices: [{
-              name: 'red',
-              text: 'Red {@msisdn}'
-            }]
+          properties: {
+            question: {
+              __type__: 'multiple-choice',
+              text: `Hi {@msisdn}. What is your favourite colour?`,
+              choices: [{
+                name: 'red',
+                text: 'Red {@msisdn}'
+              }]
+            }
           }
         }]
       }]
@@ -363,7 +515,9 @@ describe("numl", function() {
 
     numl(`
       # _
+
       ## _
+
       ### _
       question[multiple-choice]:\`
         Hi {@msisdn}. What is your favourite colour?
@@ -374,16 +528,18 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          question: {
-            __type__: 'multiple-choice',
-            text: `Hi {@msisdn}. What is your favourite colour?`,
-            choices: [{
-              name: 'red',
-              text: 'Red {@msisdn}'
-            }, {
-              name: 'blue',
-              text: 'Blue'
-            }]
+          properties: {
+            question: {
+              __type__: 'multiple-choice',
+              text: `Hi {@msisdn}. What is your favourite colour?`,
+              choices: [{
+                name: 'red',
+                text: 'Red {@msisdn}'
+              }, {
+                name: 'blue',
+                text: 'Blue'
+              }]
+            }
           }
         }]
       }]
@@ -392,7 +548,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         question[multiple-choice]:\`
           Hi {@msisdn}. What is your favourite colour?
