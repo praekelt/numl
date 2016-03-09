@@ -1,4 +1,5 @@
 var _indent = require('indent');
+var extend = require('lodash/extend');
 var decamilize = require('decamelize');
 var extend = require('lodash/extend');
 
