@@ -120,7 +120,6 @@ exp = e (minus / plus)? digit+
 frac = point digit+
 minus = '-'
 plus = '+'
-zero = '0'
 
 
 lcletter 'lower case letter'
