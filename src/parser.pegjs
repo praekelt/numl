@@ -11,7 +11,9 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* properties:properties? ws* sequences:sequences?
+  = title:dialogueTitle
+    properties:(ws* p:properties { return p; })?
+    sequences:(blankLine ws* s:sequences { return s; })?
   {
     return {
       title: title,
@@ -22,29 +24,29 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' lineWs* value:text newline
+  = '#' lineWs* value:text
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' lineWs* value:text newline
+  = '##' lineWs* value:text
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' lineWs* value:text newline
+  = '###' lineWs* value:text
   { return value; }
 
 
 sequences 'sequences'
-  = first:sequence rest:(newline ws* s:sequence { return s; })*
+  = first:sequence rest:(blankLine ws* s:sequence { return s; })*
   { return [first].concat(rest); }
 
 
 sequence 'sequence'
   = title:sequenceTitle
     properties:(ws* p:properties { return p; })?
-    blocks:(ws* b:blocks { return b; })?
+    blocks:(blankLine ws* b:blocks { return b; })?
   {
     return {
       title: title,
@@ -55,7 +57,7 @@ sequence 'sequence'
 
 
 blocks 'blocks'
-  = first:block rest:(newline ws* b:block { return b; })*
+  = first:block rest:(blankLine ws* b:block { return b; })*
   { return [first].concat(rest); }
 
 
@@ -89,7 +91,7 @@ value 'value'
 
 
 symbol 'symbol'
-  = lcletter (lcletter / digit / dash)+
+  = lcletter (lcletter / digit / dash)*
   { return text(); }
 
 
@@ -108,6 +110,10 @@ lcletter 'lower case letter'
 text 'text'
   = [^\t\n\r]+
   { return text(); }
+
+
+blankLine 'blank line'
+  = newline lineWs* newline
 
 
 newline 'newline'

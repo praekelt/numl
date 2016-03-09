@@ -66,37 +66,110 @@ describe("numl", function() {
 
   it("should require newlines beween sections", function() {
     (function() {
-      numl(`
-        # _
-        ## _
-        ## _
-      `);
+      log(numl(`
+        # a
+        b: c
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
+        ## m
+        n: o
+      `));
     })
     .should.throw(
-      `SyntaxError: Expected end of input or whitespace but "#" found.`);
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
 
     (function() {
       numl(`
-        # _
-        ## _
-        ### _
-        ### _
+        # a
+        b: c
 
-        ## _
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
+        ## m
+        n: o
       `);
     })
     .should.throw(
-      `SyntaxError: Expected end of input or whitespace but "#" found.`);
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
 
     (function() {
       numl(`
-        # _
-        ## _
-        ### _
+        # a
+        b: c
 
-        ### _
+        ## d
+        e: f
+        ### g
+        h: i
+        ### j
+        k: l
 
-        ## _
+        ## m
+        n: o
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+
+        ### g
+        h: i
+        ### j
+        k: l
+
+        ## m
+        n: o
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found`);
+
+    (function() {
+      numl(`
+        # a
+        b: c
+
+        ## d
+        e: f
+
+        ### g
+        h: i
+
+        ### j
+        k: l
+
+        ## m
+        n: o
+      `);
+    })
+    .should.not.throw(Error);
+
+    (function() {
+      numl(`
+        # a
+
+        ## d
+
+        ### g
+
+        ### j
+
+        ## m
       `);
     })
     .should.not.throw(Error);
@@ -112,6 +185,7 @@ describe("numl", function() {
   it("should allow sequences to not have any blocks", function() {
     numl(`
       # _
+
       ## sequence
     `)
     .sequences[0].blocks.should.be.empty;
@@ -146,7 +220,9 @@ describe("numl", function() {
 
     numl(`
       # _
+
       ## _
+
       ### _
       foo:bar
       garply-waldo[symbol]:  fred
@@ -169,7 +245,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         23rar: bar
       `);
@@ -180,7 +258,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: 23rar
       `);
@@ -191,7 +271,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         rar 23: bar
       `);
@@ -202,7 +284,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: rar 23
       `);
@@ -213,7 +297,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         ポケモン: foo
       `);
@@ -224,7 +310,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: ポケモン
       `);
@@ -235,7 +323,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         rar_23: bar
       `);
@@ -246,7 +336,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: rar_23
       `);
@@ -257,7 +349,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo: bar baz: quux
       `);
@@ -270,7 +364,9 @@ describe("numl", function() {
     (function() {
       numl(`
         # _
+
         ## _
+
         ### _
         foo[bad-type]: rar_23
       `);
