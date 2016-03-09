@@ -64,6 +64,44 @@ describe("numl", function() {
     });
   });
 
+  it("should require newlines beween sections", function() {
+    (function() {
+      numl(`
+        # _
+        ## _
+        ## _
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found.`);
+
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+        ### _
+
+        ## _
+      `);
+    })
+    .should.throw(
+      `SyntaxError: Expected end of input or whitespace but "#" found.`);
+
+    (function() {
+      numl(`
+        # _
+        ## _
+        ### _
+
+        ### _
+
+        ## _
+      `);
+    })
+    .should.not.throw(Error);
+  });
+
   it("should allow dialogues to not have any sequences", function() {
     numl(`
       # dialogue

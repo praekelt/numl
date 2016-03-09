@@ -22,26 +22,29 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' lineWs* value:text
+  = '#' lineWs* value:text newline
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' lineWs* value:text
+  = '##' lineWs* value:text newline
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' lineWs* value:text
+  = '###' lineWs* value:text newline
   { return value; }
 
 
 sequences 'sequences'
-  = (s:sequence ws* { return s; })+
+  = first:sequence rest:(newline ws* s:sequence { return s; })*
+  { return [first].concat(rest); }
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* properties:properties? ws* blocks:blocks?
+  = title:sequenceTitle
+    properties:(ws* p:properties { return p; })?
+    blocks:(ws* b:blocks { return b; })?
   {
     return {
       title: title,
@@ -52,11 +55,13 @@ sequence 'sequence'
 
 
 blocks 'blocks'
-  = (b:block ws* { return b; })+
+  = first:block rest:(newline ws* b:block { return b; })*
+  { return [first].concat(rest); }
 
 
 block 'block'
-  = title:blockTitle ws* properties:properties?
+  = title:blockTitle
+    properties:(ws* p:properties { return p; })?
   {
     return {
       title: title,
