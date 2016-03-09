@@ -64,14 +64,16 @@ describe("numl.reverse", function() {
   it("should parse symbol properties", function() {
     reverse({
       title: '_',
-      foo: 'bar',
+      properties: {foo: 'bar'},
       sequences: [{
         title: '_',
-        baz: 'quux',
+        properties: {baz: 'quux'},
         blocks: [{
           title: '_',
-          corge: 'grault',
-          garplyWaldo: 'fred-xxyyxx-21'
+          properties: {
+            corge: 'grault',
+            garplyWaldo: 'fred-xxyyxx-21'
+          }
         }]
       }]
     })
@@ -93,7 +95,7 @@ describe("numl.reverse", function() {
       reverse({
         title: '_',
         sequences: [],
-        foo: new Date(0)
+        properties: {foo: new Date(0)}
       });
     })
     .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
@@ -102,7 +104,7 @@ describe("numl.reverse", function() {
   it("should parse number properties", function() {
     reverse({
       title: '_',
-      foo: 23,
+      properties: {foo: 23},
       sequences: []
     })
     .should.equal(str`
@@ -115,18 +117,20 @@ describe("numl.reverse", function() {
     reverse({
       title: '_',
       sequences: [],
-      foo: {
-        __type__: 'text',
-        value: dedent`
-          Bar
-          Baz
-          Quux
-          !@#$%^&*緑
-        `
-      },
-      corge: {
-        __type__: 'text',
-        value: 'Grault Garply'
+      properties: {
+        foo: {
+          __type__: 'text',
+          value: dedent`
+            Bar
+            Baz
+            Quux
+            !@#$%^&*緑
+          `
+        },
+        corge: {
+          __type__: 'text',
+          value: 'Grault Garply'
+        }
       }
     })
     .should.equal(str`
@@ -147,18 +151,20 @@ describe("numl.reverse", function() {
     reverse({
       title: '_',
       sequences: [],
-      foo: [
-        'bar-baz',
-        {
-          __type__: 'text',
-          value: dedent`
-            Quux
-            Corge
-            !@#$%^&*緑
-          `
-        },
-        23
-      ]
+      properties: {
+        foo: [
+          'bar-baz',
+          {
+            __type__: 'text',
+            value: dedent`
+              Quux
+              Corge
+              !@#$%^&*緑
+            `
+          },
+          23
+        ]
+      }
     })
     .should.equal(str`
     # _
@@ -177,29 +183,31 @@ describe("numl.reverse", function() {
     reverse({
       title: '_',
       sequences: [],
-      foo: {
-        bar: [{
-          baz: 'quux',
-        }, {
-          corge: 'grault',
-          garply: {
-            waldo: 'fred',
-            xxyyxx: [
-              'lazer',
-              'blazer',
-              23
-            ],
-            rar: {
-              __type__: 'text',
-              value: dedent`
-                Unique
-                New
-                York
-                !@#$%^&*緑
-                `
+      properties: {
+        foo: {
+          bar: [{
+            baz: 'quux',
+          }, {
+            corge: 'grault',
+            garply: {
+              waldo: 'fred',
+              xxyyxx: [
+                'lazer',
+                'blazer',
+                23
+              ],
+              rar: {
+                __type__: 'text',
+                value: dedent`
+                  Unique
+                  New
+                  York
+                  !@#$%^&*緑
+                  `
+              }
             }
-          }
-        }]
+          }]
+        }
       }
     })
     .should.equal(str`
@@ -227,25 +235,27 @@ describe("numl.reverse", function() {
     reverse({
       title: '_',
       sequences: [],
-      question: {
-        __type__: 'multiple-choice',
-        text: `Hi {@msisdn}. What is your favourite 色?`,
-        choices: [{
-          name: 'red',
-          text: 'Red {@msisdn}'
-        }, {
-          name: null,
-          text: 'Blue'
-        }, {
-          name: 'green',
-          text: '緑'
-        }, {
-          name: 'purple',
-          text: 'Purple!@#$%^&*()-+'
-        }, {
-          name: null,
-          text: 'Yellow'
-        }]
+      properties: {
+        question: {
+          __type__: 'multiple-choice',
+          text: `Hi {@msisdn}. What is your favourite 色?`,
+          choices: [{
+            name: 'red',
+            text: 'Red {@msisdn}'
+          }, {
+            name: null,
+            text: 'Blue'
+          }, {
+            name: 'green',
+            text: '緑'
+          }, {
+            name: 'purple',
+            text: 'Purple!@#$%^&*()-+'
+          }, {
+            name: null,
+            text: 'Yellow'
+          }]
+        }
       }
     })
     .should.equal(str`

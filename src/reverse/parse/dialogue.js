@@ -1,14 +1,13 @@
 module.exports = parse;
 
-var omit = require('lodash/omit');
-var parseProperties = require('./properties');
 var parseSequence = require('./sequence');
+var parseProperties = require('./properties');
 
 
 function parse(d) {
   return {
     title: d.title,
     sequences: d.sequences.map(parseSequence),
-    properties: parseProperties(omit(d, 'title', 'sequences'))
+    properties: parseProperties(d.properties)
   };
 }
