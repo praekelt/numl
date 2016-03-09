@@ -64,14 +64,16 @@ describe("numl.reverse", function() {
   it("should parse symbol properties", function() {
     reverse({
       title: '_',
-      foo: 'bar',
+      properties: {foo: 'bar'},
       sequences: [{
         title: '_',
-        baz: 'quux',
+        properties: {baz: 'quux'},
         blocks: [{
           title: '_',
-          corge: 'grault',
-          garplyWaldo: 'fred-xxyyxx-21'
+          properties: {
+            corge: 'grault',
+            garplyWaldo: 'fred-xxyyxx-21'
+          }
         }]
       }]
     })
@@ -93,7 +95,7 @@ describe("numl.reverse", function() {
       reverse({
         title: '_',
         sequences: [],
-        foo: new Date(0)
+        properties: {foo: new Date(0)}
       });
     })
     .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
@@ -102,7 +104,7 @@ describe("numl.reverse", function() {
   it("should parse number properties", function() {
     reverse({
       title: '_',
-      foo: 23,
+      properties: {foo: 23},
       sequences: []
     })
     .should.equal(str`
@@ -115,17 +117,19 @@ describe("numl.reverse", function() {
     reverse({
       title: '_',
       sequences: [],
-      foo: {
-        __type__: 'text',
-        value: dedent`
-          Bar
-          Baz
-          Quux
-        `
-      },
-      corge: {
-        __type__: 'text',
-        value: 'Grault Garply'
+      properties: {
+        foo: {
+          __type__: 'text',
+          value: dedent`
+            Bar
+            Baz
+            Quux
+          `
+        },
+        corge: {
+          __type__: 'text',
+          value: 'Grault Garply'
+        }
       }
     })
     .should.equal(str`
