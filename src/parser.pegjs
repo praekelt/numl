@@ -78,18 +78,34 @@ properties 'properties'
 
 
 property 'property'
-  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
+  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:propertyValue
   { return parse.property(key, type, value); }
 
 
 type 'type annotation'
-  = '[' type:symbol ']' { return type; }
+  = '[' type:symbol ']'
+  { return type; }
 
 
 value 'value'
   = (v:symbol { return parse.value('symbol', v); })
   / (v:textValue { return parse.value('text', v); })
   / (v:number { return parse.value('number', v); })
+
+
+propertyValue 'property value'
+  = value
+  / (v:nestedProperties { return parse.value('properties', v); })
+
+
+nestedProperties 'nested properties'
+  = newline ws* value:properties
+  { return value; }
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)*
+  { return text(); }
 
 
 textValue 'text value'

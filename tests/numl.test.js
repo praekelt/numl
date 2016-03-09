@@ -381,6 +381,44 @@ describe("numl", function() {
       `SyntaxError: Unrecognised type "bad-type".`);
   });
 
+  it("should parse nested properties", function() {
+    numl(`
+      # _
+
+      ## _
+      foo:
+        bar:
+
+          baz: quux-corge
+
+            grault[properties]:
+              garply [properties]:
+                waldo: fred
+
+      ### _
+      win: rar
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        properties: {
+          foo: {
+            bar: {
+              baz: 'quux-corge',
+              grault: {
+                garply: {
+                  waldo: 'fred'
+                }
+              }
+            }
+          },
+        },
+        blocks: [{
+          properties: {win: 'rar'}
+        }]
+      }]
+    });
+  });
+
   it("should parse number properties", function() {
     numl(`
       # _

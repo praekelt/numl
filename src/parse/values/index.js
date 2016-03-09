@@ -5,6 +5,7 @@ var types = {
   'symbol': identity,
   'number': identity,
   'text': require('./text'),
+  'properties': identity,
   'multiple-choice': require('./multiple-choice')
 };
 
