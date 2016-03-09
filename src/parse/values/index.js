@@ -2,9 +2,10 @@ var identity = require('lodash/identity');
 
 
 var types = {
-  symbol: identity,
-  number: identity,
-  text: require('./text')
+  'symbol': identity,
+  'number': identity,
+  'text': require('./text'),
+  'multiple-choice': require('./multiple-choice')
 };
 
 
