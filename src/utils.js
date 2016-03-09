@@ -2,13 +2,13 @@ var decamilize = require('decamelize');
 var extend = require('lodash/extend');
 
 
-function conj(a, b) {
-  return extend({}, a, b);
+function dashify(s) {
+  return decamilize(s, '-');
 }
 
 
-function dashify(s) {
-  return decamilize(s, '-');
+function conj(a, b) {
+  return extend({}, a, b);
 }
 
 
