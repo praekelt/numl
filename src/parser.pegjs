@@ -76,10 +76,6 @@ value 'value'
   = (v:symbol { return parse.value('symbol', v); })
 
 
-propertyValue 'property value'
-  = value
-
-
 symbol 'symbol'
   = lcletter (lcletter / digit / dash)+
   { return text(); }
