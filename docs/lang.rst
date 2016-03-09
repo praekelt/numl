@@ -13,15 +13,12 @@ describing them:
 
 .. code::
 
-   Foo the dialogue
-   ================
+   # Foo the dialogue
 
-   Bar the sequence
-   ----------------
+   ## Bar the sequence
    name: bar
 
-   Baz the block
-   ~~~~~~~~~~~~~
+   ### Baz the block
    name: baz
    type: end
    content: `Hello, goodbye!`
@@ -32,29 +29,27 @@ describing them:
 Titles
 ------
 
-Titles are created by 'underlining' text, where text represents any character
-other than newlines.
+Titles are human-readable descriptors for dialogues, sequences, and blocks. They
+start with ``#`` characters, and are followed by text, where text represents
+any character other than newlines.
 
-Dialogue titles are underlined using one or more ``=`` characters:
-
-.. code::
-
-   A dialogue title
-   ================
-
-Sequence titles are underlined using one or more ``-`` characters:
+Dialogue titles start with ``#``:
 
 .. code::
 
-   A sequence title
-   ----------------
+   # A dialogue title
 
-Block titles are underlined using one or more ``~`` characters:
+Sequence titles start with ``##``:
 
 .. code::
 
-   A sequence title
-   ~~~~~~~~~~~~~~~~
+   ## A sequence title
+
+Block titles start with ``###``:
+
+.. code::
+
+   ### A block title
 
 .. _symbols:
 
@@ -190,16 +185,15 @@ for example, this allows us to define routes and save values for the choices:
 .. code::
 
 
-   Favourite Colour
-   ~~~~~~~~~~~~~~~~
+   ### Favourite Colour
    name: fav-colour
    type: choice
    save: colour
 
    question[multiple-choice]:`
      Hi {@msisdn}. What is your favourite colour?
-     1. Red {$red}
-     2. Blue {$blue}
+     1. Red {=red}
+     2. Blue {=blue}
    `
    routes:
      red: chose-red

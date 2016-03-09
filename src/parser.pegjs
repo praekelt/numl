@@ -11,12 +11,15 @@ start
 
 
 dialogue 'dialogue'
-  = title:dialogueTitle ws* properties:properties? ws* sequences:sequences?
+  = title:dialogueTitle
+    properties:(ws* p:properties { return p; })?
+    sequences:(blankLine ws* s:sequences { return s; })?
   {
-    return conj(properties || {}, {
+    return {
       title: title,
+      properties: properties || {},
       sequences: sequences || []
-    });
+    };
   }
 
 
@@ -36,30 +39,41 @@ blockTitle 'block title'
 
 
 sequences 'sequences'
-  = (s:sequence ws* { return s; })*
+  = first:sequence rest:(blankLine ws* s:sequence { return s; })*
+  { return [first].concat(rest); }
 
 
 sequence 'sequence'
-  = title:sequenceTitle ws* properties:properties? ws* blocks:blocks
+  = title:sequenceTitle
+    properties:(ws* p:properties { return p; })?
+    blocks:(blankLine ws* b:blocks { return b; })?
   {
-    return conj(properties, {
+    return {
       title: title,
-      blocks: blocks
-    });
+      properties: properties || {},
+      blocks: blocks || []
+    };
   }
 
 
 blocks 'blocks'
-  = (b:block ws* { return b; })*
+  = first:block rest:(blankLine ws* b:block { return b; })*
+  { return [first].concat(rest); }
 
 
 block 'block'
-  = title:blockTitle ws* properties:properties?
-  { return conj(properties, {title: title}); }
+  = title:blockTitle
+    properties:(ws* p:properties { return p; })?
+  {
+    return {
+      title: title,
+      properties: properties || {}
+    };
+  }
 
 
 properties 'properties'
-  = first:property rest:(newline ws* p:property { return p; })*
+  = first:property rest:(lineWs* newline ws* p:property { return p; })*
   { return parse.properties([first].concat(rest)); }
 
 
@@ -88,7 +102,7 @@ nestedProperties 'nested properties'
 
 
 symbol 'symbol'
-  = lcletter (lcletter / digit / dash)+
+  = lcletter (lcletter / digit / dash)*
   { return text(); }
 
 
@@ -107,6 +121,10 @@ lcletter 'lower case letter'
 text 'text'
   = [^\t\n\r]+
   { return text(); }
+
+
+blankLine 'blank line'
+  = newline lineWs* newline
 
 
 newline 'new line'
