@@ -93,12 +93,16 @@ describe("numl", function() {
       corge: grault
     `)
     .should.shallowDeepEqual({
-      win: 'rar',
+      properties: {win: 'rar'},
       sequences: [{
-        foo: 'bar',
-        garplyWaldo: 'fred',
-        bazQuux23: 'corge-21-grault',
-        blocks: [{corge: 'grault'}]
+        properties: {
+          foo: 'bar',
+          garplyWaldo: 'fred',
+          bazQuux23: 'corge-21-grault',
+        },
+        blocks: [{
+          properties: {corge: 'grault'}
+        }]
       }]
     });
 
@@ -115,9 +119,11 @@ describe("numl", function() {
     .should.shallowDeepEqual({
       sequences: [{
         blocks: [{
-          foo: 'bar',
-          garplyWaldo: 'fred',
-          bazQuux23: 'corge-21-grault'
+          properties: {
+            foo: 'bar',
+            garplyWaldo: 'fred',
+            bazQuux23: 'corge-21-grault'
+          }
         }]
       }]
     });

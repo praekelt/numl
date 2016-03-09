@@ -13,10 +13,11 @@ start
 dialogue 'dialogue'
   = title:dialogueTitle ws* properties:properties? ws* sequences:sequences?
   {
-    return conj(properties || {}, {
+    return {
       title: title,
+      properties: properties || {},
       sequences: sequences || []
-    });
+    };
   }
 
 
@@ -42,10 +43,11 @@ sequences 'sequences'
 sequence 'sequence'
   = title:sequenceTitle ws* properties:properties? ws* blocks:blocks?
   {
-    return conj(properties || {}, {
+    return {
       title: title,
+      properties: properties || {},
       blocks: blocks || []
-    });
+    };
   }
 
 
@@ -55,7 +57,12 @@ blocks 'blocks'
 
 block 'block'
   = title:blockTitle ws* properties:properties?
-  { return conj(properties || {}, {title: title}); }
+  {
+    return {
+      title: title,
+      properties: properties || {}
+    };
+  }
 
 
 properties 'properties'

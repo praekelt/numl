@@ -110,10 +110,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c3 = { type: "other", description: "dialogue" },
 	        peg$c4 = null,
 	        peg$c5 = function(title, properties, sequences) {
-	            return conj(properties || {}, {
+	            return {
 	              title: title,
+	              properties: properties || {},
 	              sequences: sequences || []
-	            });
+	            };
 	          },
 	        peg$c6 = { type: "other", description: "dialogue title" },
 	        peg$c7 = "#",
@@ -129,15 +130,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        peg$c17 = function(s) { return s; },
 	        peg$c18 = { type: "other", description: "sequence" },
 	        peg$c19 = function(title, properties, blocks) {
-	            return conj(properties || {}, {
+	            return {
 	              title: title,
+	              properties: properties || {},
 	              blocks: blocks || []
-	            });
+	            };
 	          },
 	        peg$c20 = { type: "other", description: "blocks" },
 	        peg$c21 = function(b) { return b; },
 	        peg$c22 = { type: "other", description: "block" },
-	        peg$c23 = function(title, properties) { return conj(properties || {}, {title: title}); },
+	        peg$c23 = function(title, properties) {
+	            return {
+	              title: title,
+	              properties: properties || {}
+	            };
+	          },
 	        peg$c24 = { type: "other", description: "properties" },
 	        peg$c25 = function(p) { return p; },
 	        peg$c26 = function(first, rest) { return parse.properties([first].concat(rest)); },
