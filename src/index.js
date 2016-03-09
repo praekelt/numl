@@ -1,4 +1,6 @@
 var parser = require('./parser.pegjs');
+var errors = require('./errors');
+var extend = require('lodash/extend');
 
 
 function numl(input) {
@@ -6,5 +8,5 @@ function numl(input) {
 }
 
 
-numl.SyntaxError = parser.SyntaxError;
+extend(numl, errors);
 module.exports = numl;
