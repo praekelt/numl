@@ -2,7 +2,8 @@ var identity = require('lodash/identity');
 
 
 var types = {
-  symbol: identity
+  symbol: identity,
+  number: identity
 };
 
 
