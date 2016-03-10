@@ -9,6 +9,7 @@ function run(argv) {
   }
   catch(e) {
     log.err(e);
+    process.exit(1);
   }
 }
 
