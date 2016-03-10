@@ -26,11 +26,13 @@ describe("$ numl json", function() {
     var res = run(`json ${fixture('simple.numl')}`);
     var raw = open(fixture('simple.numl')).toString();
     res.stderr.should.be.empty;
+    res.code.should.equal(0);
     JSON.parse(res.stdout).should.deep.equal(numl(raw));
   });
 
   it("should log errors", function() {
     var res = run('json no-exist');
+    res.code.should.equal(1);
     res.stdout.should.be.empty;
     res.stderr.should.equal(
       `Error: ENOENT: no such file or directory, open 'no-exist'`);
@@ -38,6 +40,7 @@ describe("$ numl json", function() {
 
   it("should log syntax errors", function() {
     var res = run(`json ${fixture('syntax-error.numl')}`);
+    res.code.should.equal(1);
     res.stdout.should.be.empty;
     res.stderr.should.equal(str`
       Syntax Error on line 3, column 4:
