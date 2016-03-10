@@ -26,6 +26,7 @@
   "dependencies": {
     "decamelize": "^1.1.2",
     "dedent": "^0.6.0",
+    "indent": "0.0.2",
     "lodash": "^4.6.0",
     "mu2": "^0.5.20",
     "mustache-loader": "^0.3.1",
