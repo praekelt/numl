@@ -366,7 +366,7 @@ describe("numl", function() {
       `SyntaxError: Expected end of input or whitespace but "b" found.`);
   });
 
-  it("should throw an error for unrecognised types", function() {
+  it("should throw an error for unrecognised property value types", function() {
     (function() {
       numl(`
         # _
@@ -411,6 +411,52 @@ describe("numl", function() {
               }
             }
           },
+        },
+        blocks: [{
+          properties: {win: 'rar'}
+        }]
+      }]
+    });
+  });
+
+  it("should parse list properties", function() {
+    numl(`
+      # _
+
+      ## _
+      foo:
+        - bar
+        - baz: quux
+          corge: grault
+          garply: waldo
+          fred:
+            -[symbol] razor
+            - blazer
+            -[properties] lorem: dolor
+                          sit: amet
+
+      ### _
+      win: rar
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        properties: {
+          foo: [
+            'bar',
+            {
+              baz: 'quux',
+              corge: 'grault',
+              garply: 'waldo',
+              fred: [
+                'razor',
+                'blazer',
+                {
+                  lorem: 'dolor',
+                  sit: 'amet'
+                }
+              ]
+            }
+          ],
         },
         blocks: [{
           properties: {win: 'rar'}
