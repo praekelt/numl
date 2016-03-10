@@ -24,17 +24,17 @@ dialogue 'dialogue'
 
 
 dialogueTitle 'dialogue title'
-  = '#' lineWs* value:text
+  = '#' lineWs* value:lineText
   { return value; }
 
 
 sequenceTitle 'sequence title'
-  = '##' lineWs* value:text
+  = '##' lineWs* value:lineText
   { return value; }
 
 
 blockTitle 'block title'
-  = '###' lineWs* value:text
+  = '###' lineWs* value:lineText
   { return value; }
 
 
@@ -78,16 +78,91 @@ properties 'properties'
 
 
 property 'property'
-  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:value
+  = key:symbol lineWs* type:type? lineWs* ':' lineWs* value:propertyValue
   { return parse.property(key, type, value); }
 
 
 type 'type annotation'
-  = '[' type:symbol ']' { return type; }
+  = '[' type:symbol ']'
+  { return type; }
 
 
 value 'value'
   = (v:symbol { return parse.value('symbol', v); })
+  / (v:list { return parse.value('list', v); })
+  / (v:textValue { return parse.value('text', v); })
+  / (v:number { return parse.value('number', v); })
+
+
+propertyValue 'property value'
+  = value
+  / (v:nestedProperties { return parse.value('properties', v); })
+
+
+nestedProperties 'nested properties'
+  = newline ws* value:properties
+  { return value; }
+
+
+// TODO indentation checking
+list 'list'
+  = (newline ws* item:listItem { return item; })+
+
+
+listItem 'list item'
+  = dash lineWs* type:type? lineWs* value:listItemValue
+  { return parse.listItem(type, value); }
+
+
+listItemValue 'list item value'
+  = (v:properties { return parse.value('properties', v); })
+  / value
+
+
+symbol 'symbol'
+  = lcletter (lcletter / digit / dash)*
+  { return text(); }
+
+
+textValue 'text value'
+  = '`' newline* value:text newline* '`'
+  { return value; }
+
+number 'number'
+  = sign? int frac? exp?
+  { return parseFloat(text()) }
+
+
+int 'integer'
+  = digit+
+  { return parseInt(text()) }
+
+
+digit 'digit'
+  = [0-9]
+
+
+point = '.'
+sign = minus / plus
+e = [eE]
+exp = e (minus / plus)? digit+
+frac = point digit+
+minus = '-'
+plus = '+'
+
+
+lcletter 'lower case letter'
+  = [a-z]
+
+
+text 'text'
+  = [^`]*
+  { return text(); }
+
+
+lineText 'line text'
+  = [^\t\n\r]+
+  { return text(); }
 
 
 symbol 'symbol'
@@ -99,24 +174,11 @@ dash '-'
   = '-'
 
 
-digit 'digit'
-  = [0-9]
-
-
-lcletter 'lower case letter'
-  = [a-z]
-
-
-text 'text'
-  = [^\t\n\r]+
-  { return text(); }
-
-
 blankLine 'blank line'
   = newline lineWs* newline
 
 
-newline 'newline'
+newline 'new line'
   = [\n]
 
 
