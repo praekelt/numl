@@ -31,7 +31,6 @@
     "chalk": "^1.1.1",
     "dedent": "^0.6.0",
     "lodash": "^4.6.0",
-    "log-syntax-error": "^0.1.1",
     "to-camel-case": "^1.0.0",
     "yargs": "^4.2.0"
   }
