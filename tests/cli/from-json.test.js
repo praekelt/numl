@@ -1,7 +1,7 @@
 var reverse = require('../../numl').reverse;
 var exec = require('shelljs').exec;
 var open = require('fs').readFileSync;
-var str = require('dedent-js');
+var str = require('dedent');
 
 
 function run(args) {

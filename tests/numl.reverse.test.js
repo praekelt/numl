@@ -1,4 +1,4 @@
-var dedent = require('dedent-js');
+var dedent = require('dedent');
 var reverse = require('../numl').reverse;
 
 
