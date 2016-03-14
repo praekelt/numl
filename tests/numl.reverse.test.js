@@ -124,6 +124,7 @@ describe("numl.reverse", function() {
             Bar
             Baz
             Quux
+            !@#$%^&*緑
           `
         },
         corge: {
@@ -138,10 +139,95 @@ describe("numl.reverse", function() {
       Bar
       Baz
       Quux
+      !@#$%^&*緑
     \`
     corge: \`
       Grault Garply
     \`
+    `);
+  });
+
+  it("should parse list properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: [
+          'bar-baz',
+          {
+            __type__: 'text',
+            value: dedent`
+              Quux
+              Corge
+              !@#$%^&*緑
+            `
+          },
+          23
+        ]
+      }
+    })
+    .should.equal(str`
+    # _
+    foo:
+      - bar-baz
+      - \`
+        Quux
+        Corge
+        !@#$%^&*緑
+      \`
+      - 23
+    `);
+  });
+
+  it("should parse nested properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: {
+          bar: [{
+            baz: 'quux',
+          }, {
+            corge: 'grault',
+            garply: {
+              waldo: 'fred',
+              xxyyxx: [
+                'lazer',
+                'blazer',
+                23
+              ],
+              rar: {
+                __type__: 'text',
+                value: dedent`
+                  Unique
+                  New
+                  York
+                  !@#$%^&*緑
+                  `
+              }
+            }
+          }]
+        }
+      }
+    })
+    .should.equal(str`
+    # _
+    foo:
+      bar:
+        - baz: quux
+        - corge: grault
+          garply:
+            waldo: fred
+            xxyyxx:
+              - lazer
+              - blazer
+              - 23
+            rar: \`
+              Unique
+              New
+              York
+              !@#$%^&*緑
+            \`
     `);
   });
 });

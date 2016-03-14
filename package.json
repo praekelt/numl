@@ -22,6 +22,7 @@
     "gulp": "^3.8.11",
     "gulp-mocha": "^1.1.1",
     "mocha": "^1.21.4",
+    "indent": "0.0.2",
     "pegjs": "^0.8.0",
     "pegjs-loader": "^0.4.0",
     "shelljs": "^0.6.0",

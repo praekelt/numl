@@ -1,15 +1,13 @@
-var map = require('lodash/map');
+module.exports = parse;
+
 var parseBlock = require('./block');
-var parseProperty = require('./property');
+var parseProperties = require('./properties');
 
 
 function parse(d) {
   return {
     title: d.title,
     blocks: d.blocks.map(parseBlock),
-    properties: map(d.properties, parseProperty)
+    properties: parseProperties(d.properties)
   };
 }
-
-
-module.exports = parse;
