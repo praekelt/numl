@@ -1,0 +1,6 @@
+`
+  {{text}}
+  {{#choices}}
+  {{i}}. {{{text}}}{{#name}} {={{name}}}{{/name}}
+  {{/choices}}
+`

@@ -100,4 +100,174 @@ describe("numl.reverse", function() {
     })
     .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
   });
+
+  it("should parse number properties", function() {
+    reverse({
+      title: '_',
+      properties: {foo: 23},
+      sequences: []
+    })
+    .should.equal(str`
+    # _
+    foo: 23
+    `);
+  });
+
+  it("should parse text properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: {
+          __type__: 'text',
+          value: dedent`
+            Bar
+            Baz
+            Quux
+            !@#$%^&*緑
+          `
+        },
+        corge: {
+          __type__: 'text',
+          value: 'Grault Garply'
+        }
+      }
+    })
+    .should.equal(str`
+    # _
+    foo: \`
+      Bar
+      Baz
+      Quux
+      !@#$%^&*緑
+    \`
+    corge: \`
+      Grault Garply
+    \`
+    `);
+  });
+
+  it("should parse list properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: [
+          'bar-baz',
+          {
+            __type__: 'text',
+            value: dedent`
+              Quux
+              Corge
+              !@#$%^&*緑
+            `
+          },
+          23
+        ]
+      }
+    })
+    .should.equal(str`
+    # _
+    foo:
+      - bar-baz
+      - \`
+        Quux
+        Corge
+        !@#$%^&*緑
+      \`
+      - 23
+    `);
+  });
+
+  it("should parse nested properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: {
+          bar: [{
+            baz: 'quux',
+          }, {
+            corge: 'grault',
+            garply: {
+              waldo: 'fred',
+              xxyyxx: [
+                'lazer',
+                'blazer',
+                23
+              ],
+              rar: {
+                __type__: 'text',
+                value: dedent`
+                  Unique
+                  New
+                  York
+                  !@#$%^&*緑
+                  `
+              }
+            }
+          }]
+        }
+      }
+    })
+    .should.equal(str`
+    # _
+    foo:
+      bar:
+        - baz: quux
+        - corge: grault
+          garply:
+            waldo: fred
+            xxyyxx:
+              - lazer
+              - blazer
+              - 23
+            rar: \`
+              Unique
+              New
+              York
+              !@#$%^&*緑
+            \`
+    `);
+  });
+
+  it("should parse multiple choice properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        question: {
+          __type__: 'multiple-choice',
+          text: `Hi {@msisdn}. What is your favourite 色?`,
+          choices: [{
+            name: 'red',
+            text: 'Red {@msisdn}'
+          }, {
+            name: null,
+            text: 'Blue'
+          }, {
+            name: 'green',
+            text: '緑'
+          }, {
+            name: 'purple',
+            text: 'Purple!@#$%^&*()-+'
+          }, {
+            name: null,
+            text: 'Yellow'
+          }]
+        }
+      }
+    })
+    .should.equal(str`
+    # _
+    question[multiple-choice]: \`
+      Hi {@msisdn}. What is your favourite 色?
+      1. Red {@msisdn} {=red}
+      2. Blue
+      3. 緑 {=green}
+      4. Purple!@#$%^&*()-+ {=purple}
+      5. Yellow
+    \`
+    `);
+  });
 });
