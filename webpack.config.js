@@ -9,6 +9,9 @@ module.exports = {
     loaders: [{
       test: /\.pegjs$/,
       loader: 'pegjs-loader'
+    }, {
+      test: /\.mst$/,
+      loader: 'mustache'
     }]
   }
 };
