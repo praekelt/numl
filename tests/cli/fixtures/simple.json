@@ -1,0 +1,12 @@
+{
+  "title":"dialogue",
+  "sequences": [{
+    "name":"seq",
+    "title":"sequence",
+    "blocks": [{
+      "name":"end",
+      "type":"end-screen",
+      "title":"block"
+    }]
+  }]
+}
