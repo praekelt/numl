@@ -1,0 +1,8 @@
+# dialogue
+
+## sequence
+name: seq
+
+### block
+name: end
+type: end-screen
