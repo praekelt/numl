@@ -100,4 +100,48 @@ describe("numl.reverse", function() {
     })
     .should.throw('No type found for value "1970-01-01T00:00:00.000Z"');
   });
+
+  it("should parse number properties", function() {
+    reverse({
+      title: '_',
+      properties: {foo: 23},
+      sequences: []
+    })
+    .should.equal(str`
+    # _
+    foo: 23
+    `);
+  });
+
+  it("should parse text properties", function() {
+    reverse({
+      title: '_',
+      sequences: [],
+      properties: {
+        foo: {
+          __type__: 'text',
+          value: dedent`
+            Bar
+            Baz
+            Quux
+          `
+        },
+        corge: {
+          __type__: 'text',
+          value: 'Grault Garply'
+        }
+      }
+    })
+    .should.equal(str`
+    # _
+    foo: \`
+      Bar
+      Baz
+      Quux
+    \`
+    corge: \`
+      Grault Garply
+    \`
+    `);
+  });
 });
