@@ -1,3 +1,9 @@
+{
+  var utils = require('../../../utils');
+  var omitNulls = utils.omitNulls;
+}
+
+
 start
   = text:text lineWs* newline choices:choices
   {
@@ -15,17 +21,17 @@ choices 'choices'
 
 
 choice 'choice'
-  = digit+ '. ' text:choiceText lineWs* name:choiceName? lineWs*
+  = digit+ '. ' text:choiceText lineWs* id:choiceId? lineWs*
   {
-    return {
+    return omitNulls({
       text: text,
-      name: name || null
-    };
+      id: id || null
+    });
   }
 
-choiceName 'choice name'
-  = '{=' name:symbol '}'
-  { return name; }
+choiceId 'choice id'
+  = '{=' id:symbol '}'
+  { return id; }
 
 
 symbol 'symbol'

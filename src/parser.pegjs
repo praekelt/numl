@@ -1,7 +1,9 @@
 {
+  var get = require('lodash/get');
   var parse = require('./parse');
   var utils = require('./utils');
   var conj = utils.conj;
+  var omitNulls = utils.omitNulls;
 }
 
 
@@ -15,9 +17,9 @@ dialogue 'dialogue'
     properties:(ws* p:properties { return p; })?
     sequences:(blankLine ws* s:sequences { return s; })?
   {
+    // `properties` isn't used, reserved for potential future use
     return {
       title: title,
-      properties: properties || {},
       sequences: sequences || []
     };
   }
@@ -48,11 +50,11 @@ sequence 'sequence'
     properties:(ws* p:properties { return p; })?
     blocks:(blankLine ws* b:blocks { return b; })?
   {
-    return {
+    return omitNulls({
+      id: get(properties, 'id', null),
       title: title,
-      properties: properties || {},
       blocks: blocks || []
-    };
+    });
   }
 
 
@@ -65,10 +67,12 @@ block 'block'
   = title:blockTitle
     properties:(ws* p:properties { return p; })?
   {
-    return {
+    return omitNulls({
+      id: get(properties, 'id', null),
+      type: get(properties, 'type', null),
       title: title,
       properties: properties || {}
-    };
+    });
   }
 
 
