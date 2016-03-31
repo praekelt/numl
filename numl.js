@@ -8318,7 +8318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var H = __webpack_require__(139);
-	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,29,47,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("sequences",c,p,1),c,p,0,77,233,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,109,127,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,154,221,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,187,205,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{#sequences}}\n\n## {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{#blocks}}\n\n### {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
+	module.exports = function() { var T = new H.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("# ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("sequences",c,p,1),c,p,0,28,184,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("## ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,60,78,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}if(t.s(t.f("blocks",c,p,1),c,p,0,105,172,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("\n" + i);t.b("### ");t.b(t.t(t.f("title",c,p,0)));t.b("\n" + i);if(t.s(t.f("properties",c,p,1),c,p,0,138,156,"{{ }}")){t.rs(c,p,function(c,p,t){t.b(t.t(t.f("properties",c,p,0)));t.b("\n" + i);});c.pop();}});c.pop();}});c.pop();}return t.fl(); },partials: {}, subs: {  }}, "# {{{title}}}\n{{#sequences}}\n\n## {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{#blocks}}\n\n### {{{title}}}\n{{#properties}}\n{{{properties}}}\n{{/properties}}\n{{/blocks}}\n{{/sequences}}\n", H);return T.render.apply(T, arguments); };
 
 /***/ },
 /* 139 */
@@ -9150,13 +9150,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var parseBlock = __webpack_require__(144);
 	var parseProperties = __webpack_require__(145);
+	var utils = __webpack_require__(24);
+	var conj = utils.conj;
+	var omitNulls = utils.omitNulls;
 
 
 	function parse(d) {
 	  return {
 	    title: d.title,
 	    blocks: d.blocks.map(parseBlock),
-	    properties: parseProperties(d.properties)
+	    properties: parseProperties(conj(d.properties, omitNulls({
+	      id: d.id || null
+	    })))
 	  };
 	}
 
@@ -9168,12 +9173,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = parse;
 
 	var parseProperties = __webpack_require__(145);
+	var utils = __webpack_require__(24);
+	var conj = utils.conj;
+	var omitNulls = utils.omitNulls;
 
 
 	function parse(d) {
 	  return {
 	    title: d.title,
-	    properties: parseProperties(d.properties)
+	    properties: parseProperties(conj(d.properties, omitNulls({
+	      id: d.id || null,
+	      type: d.type || null
+	    })))
 	  };
 	}
 
