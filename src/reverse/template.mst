@@ -1,7 +1,4 @@
 # {{{title}}}
-{{#properties}}
-{{{properties}}}
-{{/properties}}
 {{#sequences}}
 
 ## {{{title}}}

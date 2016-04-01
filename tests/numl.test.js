@@ -70,6 +70,94 @@ describe("numl", function() {
     });
   });
 
+  it("should parse sequence ids", function() {
+    numl(`
+
+      # _
+
+      ## Foo
+      id: foo
+
+      ## Bar
+      id: bar
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        id: 'foo'
+      }, {
+        id: 'bar'
+      }]
+    });
+  });
+
+  it("should parse block ids", function() {
+    numl(`
+
+      # _
+
+      ## _
+
+      ### Foo
+      id: foo
+      a: b
+
+      ### Bar
+      id: bar
+      c: d
+
+      ### Baz
+      e: f
+
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          id: 'foo',
+          properties: {a: 'b'}
+        }, {
+          id: 'bar',
+          properties: {c: 'd'}
+        }, {
+          properties: {e: 'f'}
+        }]
+      }]
+    });
+  });
+
+  it("should parse block types", function() {
+    numl(`
+
+      # _
+
+      ## _
+
+      ### Foo
+      type: foo
+      a: b
+
+      ### Bar
+      type: bar
+      c: d
+
+      ### Baz
+      e: f
+
+    `)
+    .should.shallowDeepEqual({
+      sequences: [{
+        blocks: [{
+          type: 'foo',
+          properties: {a: 'b'}
+        }, {
+          type: 'bar',
+          properties: {c: 'd'}
+        }, {
+          properties: {e: 'f'}
+        }]
+      }]
+    });
+  });
+
   it("should require newlines beween sections", function() {
     (function() {
       log(numl(`
@@ -203,23 +291,22 @@ describe("numl", function() {
       win: rar
 
       ## _
+
+      ### _
       foo:bar 
       garply-waldo[symbol]:  fred
       baz-quux-23 [symbol] : corge-21-grault
-
-      ### _
       corge: grault
     `)
     .should.shallowDeepEqual({
-      properties: {win: 'rar'},
       sequences: [{
-        properties: {
-          foo: 'bar',
-          garplyWaldo: 'fred',
-          bazQuux23: 'corge-21-grault',
-        },
         blocks: [{
-          properties: {corge: 'grault'}
+          properties: {
+            foo: 'bar',
+            garplyWaldo: 'fred',
+            bazQuux23: 'corge-21-grault',
+            corge: 'grault'
+          }
         }]
       }]
     });
@@ -386,6 +473,9 @@ describe("numl", function() {
       # _
 
       ## _
+
+      ### _
+      win: rar
       foo:
         bar:
 
@@ -394,26 +484,23 @@ describe("numl", function() {
             grault[properties]:
               garply [properties]:
                 waldo: fred
-
-      ### _
-      win: rar
     `)
     .should.shallowDeepEqual({
       sequences: [{
-        properties: {
-          foo: {
-            bar: {
-              baz: 'quux-corge',
-              grault: {
-                garply: {
-                  waldo: 'fred'
+        blocks: [{
+          properties: {
+            win: 'rar',
+            foo: {
+              bar: {
+                baz: 'quux-corge',
+                grault: {
+                  garply: {
+                    waldo: 'fred'
+                  }
                 }
               }
-            }
-          },
-        },
-        blocks: [{
-          properties: {win: 'rar'}
+            },
+          }
         }]
       }]
     });
@@ -424,6 +511,9 @@ describe("numl", function() {
       # _
 
       ## _
+
+      ### _
+      win: rar
       foo:
         - bar
         - baz: quux
@@ -434,32 +524,29 @@ describe("numl", function() {
             - blazer
             -[properties] lorem: dolor
                           sit: amet
-
-      ### _
-      win: rar
     `)
     .should.shallowDeepEqual({
       sequences: [{
-        properties: {
-          foo: [
-            'bar',
-            {
-              baz: 'quux',
-              corge: 'grault',
-              garply: 'waldo',
-              fred: [
-                'razor',
-                'blazer',
-                {
-                  lorem: 'dolor',
-                  sit: 'amet'
-                }
-              ]
-            }
-          ],
-        },
         blocks: [{
-          properties: {win: 'rar'}
+          properties: {
+            win: 'rar',
+            foo: [
+              'bar',
+              {
+                baz: 'quux',
+                corge: 'grault',
+                garply: 'waldo',
+                fred: [
+                  'razor',
+                  'blazer',
+                  {
+                    lorem: 'dolor',
+                    sit: 'amet'
+                  }
+                ]
+              }
+            ],
+          }
         }]
       }]
     });
@@ -580,19 +667,17 @@ describe("numl", function() {
               __type__: 'multiple-choice',
               text: `Hi {@msisdn}. What is your favourite 色?`,
               choices: [{
-                name: 'red',
+                id: 'red',
                 text: 'Red {@msisdn}'
               }, {
-                name: null,
                 text: 'Blue'
               }, {
-                name: 'green',
+                id: 'green',
                 text: '緑'
               }, {
-                name: 'purple',
+                id: 'purple',
                 text: 'Purple!@#$%^&*()-+'
               }, {
-                name: null,
                 text: 'Yellow'
               }]
             }
@@ -620,7 +705,7 @@ describe("numl", function() {
               __type__: 'multiple-choice',
               text: `Hi {@msisdn}. What is your favourite colour?`,
               choices: [{
-                name: 'red',
+                id: 'red',
                 text: 'Red {@msisdn}'
               }]
             }
@@ -649,10 +734,10 @@ describe("numl", function() {
               __type__: 'multiple-choice',
               text: `Hi {@msisdn}. What is your favourite colour?`,
               choices: [{
-                name: 'red',
+                id: 'red',
                 text: 'Red {@msisdn}'
               }, {
-                name: 'blue',
+                id: 'blue',
                 text: 'Blue'
               }]
             }
